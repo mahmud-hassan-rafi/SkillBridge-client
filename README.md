@@ -641,7 +641,7 @@ For issues, questions, or suggestions:
 
 <div align="center">
 
-### Built with ❤️ using React & Vite
+### Built by ❤️ Mahmud Hassan Rafi
 
 **Last Updated**: December 2025
 
