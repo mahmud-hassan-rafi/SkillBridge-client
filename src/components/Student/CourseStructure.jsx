@@ -13,7 +13,7 @@ const CourseStructure = ({
   const [openSections, setOpenSections] = useState({});
   const { calculateChapterTime } = useAppContext();
   const navigate = useNavigate();
-  console.log("course structure components");
+
   // toggle sections
   const toggleSection = (idx) => {
     setOpenSections((prev) => {
@@ -31,11 +31,15 @@ const CourseStructure = ({
             className="border border-gray-300 bg-white mb-2 rounded"
           >
             <div
-              className="flex items-center justify-between px-4 py-3 cursor-pointer select-none"
+              className="flex items-center justify-between px-4 py-3 cursor-pointer select-none w-full"
               onClick={() => toggleSection(idx)}
             >
               {/* arrow icon and chapter title */}
-              <div className="flex items-center gap-2">
+              <div
+                className={`flex items-center  ${
+                  !openSections[idx] ? "w-2/3 gap-2" : "w-full gap-3"
+                } `}
+              >
                 <img
                   src={assets.down_arrow_icon}
                   alt=""
@@ -43,15 +47,21 @@ const CourseStructure = ({
                     openSections[idx] && "rotate-180 "
                   }`}
                 />
-                <p className="font-medium text-sm md:text-base">
+                <p
+                  className={`font-medium text-sm md:text-base ${
+                    !openSections[idx] ? "line-clamp-1" : "line-clamp-2"
+                  }`}
+                >
                   {chapter?.chapterTitle}
                 </p>
               </div>
               {/* No. of lectures and total duration */}
-              <p className="text-sm md:text-base">
-                {chapter?.chapterContent?.length} lectures -{" "}
-                {calculateChapterTime(chapter)}
-              </p>
+              {!openSections[idx] && (
+                <p className="text-sm md:text-base text-left truncate">
+                  {chapter?.chapterContent?.length} lectures -{" "}
+                  {calculateChapterTime(chapter)}
+                </p>
+              )}
             </div>
             <div
               className={`overflow-hidden transition-all duration-200 ${
