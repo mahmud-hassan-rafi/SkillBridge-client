@@ -1,22 +1,14 @@
 import { assets } from "@assets/assets";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Searchbar = ({ data }) => {
+const Searchbar = ({ data, isClickOnClose, setIsClickOnClose }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState(data ? data : "");
   const onSearchHandler = (event) => {
     event.preventDefault();
     navigate("/course-list/" + input);
   };
-
-  useEffect(() => {
-    (() => {
-      if (input && input.length > 2) {
-        navigate("/course-list/" + input);
-      }
-    })();
-  }, [input]);
 
   return (
     <form
@@ -34,7 +26,8 @@ const Searchbar = ({ data }) => {
         className="w-full h-full outline-none text-gray-500/80"
         value={input}
         onChange={(event) => {
-          setInput(event.target.value);
+          setInput(isClickOnClose ? "" : event.target.value);
+          setIsClickOnClose(false);
         }}
       />
       <button
