@@ -9,7 +9,6 @@ const Navbar = () => {
   const isSignUpPath = location.pathname.includes("/signup");
   const navigate = useNavigate();
   const auth = useSelector((state) => state?.auth);
-
   return (
     <div
       className={`flex items-center justify-between px-2 xs:px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${
@@ -50,6 +49,12 @@ const Navbar = () => {
             Create Account
           </Link>
         )}
+
+        <img
+          src={auth?.user?.imageUrl}
+          alt=""
+          className="w-10 h-10 rounded-full ml-5 cursor-pointer"
+        />
       </div>
       {/* mobile view */}
       <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
