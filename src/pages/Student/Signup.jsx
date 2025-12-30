@@ -6,7 +6,12 @@ import { useSelector } from "react-redux";
 import { assets } from "@assets/assets";
 
 const Signup = () => {
+  const state = useSelector((state) => state.auth);
+  // eslint-disable-next-line no-unused-vars
+  const [registerStudent, response] = useRegisterMutation();
+
   const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     fullname: {
       firstname: "",
@@ -15,7 +20,9 @@ const Signup = () => {
     email: "",
     password: "",
     role: "student",
+    gender: "",
   });
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const isPasswordMatchWithConfirm =
     userData.password &&
@@ -24,22 +31,20 @@ const Signup = () => {
       ? true
       : false;
 
-  const state = useSelector((state) => state.auth);
-  // eslint-disable-next-line no-unused-vars
-  const [registerStudent, response] = useRegisterMutation();
-
   const handleOnSubmit = async (event) => {
     event.preventDefault();
     console.log(userData);
     console.log(state);
-    console.log("before");
     if (!isPasswordMatchWithConfirm) {
       errorNotify("password not matched with confirm password");
       return;
     }
-    console.log("after");
     try {
-      const res = await registerStudent(userData).unwrap();
+      const res = await registerStudent({
+        ...userData,
+        imageUrl:
+          userData.gender === "male" ? assets?.male_user : assets?.female_user,
+      }).unwrap();
       successNotify(res?.message);
 
       setUserData({
@@ -64,6 +69,8 @@ const Signup = () => {
       }
     }
   };
+
+  console.log(userData);
 
   return (
     <div className=" w-full h-[88vh] flex flex-col md:flex-row  justify-between items-center bg-white md:px-8 xl:px-32 2xl:">
@@ -166,7 +173,7 @@ const Signup = () => {
               className={`text-base rounded p-3 bg-[#eeeeee] placeholder:text-base outline-0 ${
                 confirmPassword.length > 0 && !isPasswordMatchWithConfirm
                   ? "border border-red-500"
-                  : "mb-3"
+                  : "mb-5"
               } `}
             />
             {confirmPassword.length > 0 && !isPasswordMatchWithConfirm && (
@@ -174,6 +181,52 @@ const Signup = () => {
                 Password not matched
               </p>
             )}
+
+            <div>
+              <h2 className="text-lg font-semibold">Gender</h2>
+              <label
+                htmlFor="gender"
+                name="gender"
+                className="flex items-center gap-4 mb-5 ml-2"
+              >
+                <span className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="male"
+                    required
+                    value={"male"}
+                    onChange={(e) =>
+                      setUserData((prev) => ({
+                        ...prev,
+                        gender: e.target.value,
+                      }))
+                    }
+                  />
+                  <label htmlFor="male" className=" text-lg">
+                    male
+                  </label>
+                </span>
+                {/* just for space */}
+                <span className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="female"
+                    value={"female"}
+                    onChange={(e) =>
+                      setUserData((prev) => ({
+                        ...prev,
+                        gender: e.target.value,
+                      }))
+                    }
+                  />
+                  <label htmlFor="female" className=" text-lg">
+                    female
+                  </label>
+                </span>
+              </label>
+            </div>
             <button className="bg-black text-[18px] text-white p-2.5 font-semibold rounded">
               Create Student Account
             </button>
