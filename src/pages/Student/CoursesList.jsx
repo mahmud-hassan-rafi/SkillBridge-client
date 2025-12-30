@@ -11,6 +11,7 @@ const CoursesList = () => {
   const { input } = useParams();
   const { allCourses } = useAppContext();
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const [isClickOnClose, setIsClickOnClose] = useState(false);
 
   useEffect(() => {
     (() => {
@@ -46,7 +47,12 @@ const CoursesList = () => {
               / <span>Course List</span>
             </p>
           </div>
-          <Searchbar data={input} className="w-1/3" />
+          <Searchbar
+            data={input}
+            isClickOnClose={isClickOnClose}
+            setIsClickOnClose={setIsClickOnClose}
+            className="w-1/3"
+          />
         </div>
         {input && (
           <div className="inline-flex items-center gap-4 px-4 py-2 border mt-8 -mb-8 text-gray-600">
@@ -57,6 +63,7 @@ const CoursesList = () => {
               className="cursor-pointer"
               onClick={() => {
                 navigate("/course-list");
+                setIsClickOnClose(true);
               }}
             />
           </div>
