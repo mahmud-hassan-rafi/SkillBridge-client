@@ -24,9 +24,9 @@ import ScrollToTop from "@components/common/ScrollToTop";
 import "quill/dist/quill.snow.css";
 
 const App = () => {
-  useLoadUserQuery();
+  const { isLoading } = useLoadUserQuery();
 
-  return (
+  return !isLoading ? (
     <>
       <ScrollToTop />
       <Routes>
@@ -69,6 +69,8 @@ const App = () => {
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>
+  ) : (
+    <Loading />
   );
 };
 
