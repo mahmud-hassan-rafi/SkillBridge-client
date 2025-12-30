@@ -34,7 +34,7 @@ const CourseDetails = () => {
     <>
       <div
         className="flex md:flex-row flex-col-reverse gap-10 relative items-start
-justify-between md:px-24 2xl:px-32 px-8 md:pt-20 pt-6 text-left"
+justify-between md:px-8 lg:px-16 xl:px-24 2xl:px-32 px-8 md:pt-20 pt-6 text-left"
       >
         {/* bg */}
         <div
@@ -97,7 +97,7 @@ bg-linear-to-b from-cyan-100/70"
             scrollToVideoRef={scrollToVideoRef}
           />
           {/* description section */}
-          <div className="py-20 text-sm md:text-base">
+          <div className="py-8 md:py-20 text-sm md:text-base">
             <h3
               className="text-xl font-semibold text-gray-800"
               ref={scrollToDescription}
