@@ -8,6 +8,7 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [allCourses, setAllCourses] = useState([]);
+  const [manageAccount, setManageAccount] = useState(false);
 
   // fetch all courses
   useEffect(() => {
@@ -67,6 +68,9 @@ export const AppContextProvider = ({ children }) => {
     return totalLectures;
   };
 
+  // for capitalize name
+  const capitalize = (str) => (str ? str[0].toUpperCase() + str.slice(1) : "");
+
   const value = {
     currency,
     allCourses,
@@ -74,7 +78,9 @@ export const AppContextProvider = ({ children }) => {
     calculateChapterTime,
     calculateCourseDuration,
     calculateNoOfLectures,
-    // fetchUserEnrolledCourses,
+    capitalize,
+    manageAccount,
+    setManageAccount,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
