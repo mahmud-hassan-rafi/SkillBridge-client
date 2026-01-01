@@ -19,7 +19,7 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
       onClick={() => setClickOnProfile(false)}
     >
       {/* profile */}
-      <div className="flex items-center gap-4 border-b border-b-gray-200/70 p-3 hover:bg-gray-50/70 w-full cursor-pointer transition-colors">
+      <div className="flex items-center gap-4 border-b border-b-gray-200/70 p-3 hover:bg-gray-300/20 w-full cursor-pointer transition-colors">
         <span className="flex w-[15%] items-center justify-center">
           <img
             src={user?.imageUrl}
@@ -38,7 +38,7 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
 
       {/* manage accounts */}
       <div
-        className="flex items-center gap-4 border-b border-b-gray-200/70 px-3 py-4 hover:bg-gray-50/70 w-full cursor-pointer transition-colors"
+        className="flex items-center gap-4 border-b border-b-gray-200/70 px-3 py-4 hover:bg-gray-300/20 w-full cursor-pointer transition-colors"
         onClick={() => {
           setManageAccount(true);
           console.log("click on manage account");
@@ -55,7 +55,7 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
       </div>
 
       {/* signout */}
-      <div className="flex items-center gap-4 px-3 py-4 hover:bg-gray-50/70 w-full cursor-pointer transition-colors">
+      <div className="flex items-center gap-4 px-3 py-4 hover:bg-gray-300/20 w-full cursor-pointer transition-colors">
         <span className="flex w-[15%] items-center justify-center">
           <PiSignOut className="h-5 w-5 text-gray-800/80 " />
         </span>
