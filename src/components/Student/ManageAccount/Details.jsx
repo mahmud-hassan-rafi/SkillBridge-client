@@ -8,7 +8,7 @@ const Details = ({ clickedOn }) => {
   const { setManageAccount } = useAppContext();
 
   return (
-    <div className="w-[70%] p-5 relative">
+    <div className="md:min-w-[73%] min-w-[90%] py-5 relative">
       <img
         src={assets.cross_icon}
         alt=""
