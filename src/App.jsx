@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "@pages/Student/Home";
 import Loading from "@components/common/Loading";
@@ -16,12 +16,13 @@ import PageNotFound from "@pages/common/PageNotFound";
 import Instructor from "@pages/Instructor/Instructor";
 import Login from "@pages/Student/Login";
 import Signup from "@pages/Student/Signup";
-import InstructorLogin from "@pages/Instructor/InstructorLogin";
-import InstructorSignup from "@pages/Instructor/InstructorSignup";
+// import InstructorLogin from "@pages/Instructor/InstructorLogin";
+// import InstructorSignup from "@pages/Instructor/InstructorSignup";
 import PrivateRoutes from "@components/common/PrivateRoutes";
 import { useLoadUserQuery } from "@features/auth/authApi";
 import ScrollToTop from "@components/common/ScrollToTop";
 import "quill/dist/quill.snow.css";
+import RootRedirect from "@utils/RootRedirect";
 
 const App = () => {
   const { isLoading } = useLoadUserQuery();
@@ -31,7 +32,11 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainLayoutStudent />}>
-          <Route index={true} element={<Home />} />
+          <Route
+            index={true}
+            element={<RootRedirect isLoading={isLoading} />}
+          />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/course-list" element={<CoursesList />} />
@@ -57,12 +62,45 @@ const App = () => {
         </Route>
         {/* Teacher routes ⬇ */}
         <Route path="/instructor" element={<Instructor />}>
-          <Route path="login" element={<InstructorLogin />} />
-          <Route path="signup" element={<InstructorSignup />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="add-course" element={<AddCourse />} />
-          <Route path="my-courses" element={<MyCourses />} />
-          <Route path="student-enrolled" element={<StudentsEnrolled />} />
+          <Route index={true} element={<Navigate to={"dashboard"} />} />
+          {/* <Route path="login" element={<InstructorLogin />} />
+          <Route path="signup" element={<InstructorSignup />} /> */}
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRoutes
+                allowRoles={"instructor"}
+                children={<Dashboard />}
+              />
+            }
+          />
+          <Route
+            path="add-course"
+            element={
+              <PrivateRoutes
+                allowRoles={"instructor"}
+                children={<AddCourse />}
+              />
+            }
+          />
+          <Route
+            path="my-courses"
+            element={
+              <PrivateRoutes
+                allowRoles={"instructor"}
+                children={<MyCourses />}
+              />
+            }
+          />
+          <Route
+            path="student-enrolled"
+            element={
+              <PrivateRoutes
+                allowRoles={"instructor"}
+                children={<StudentsEnrolled />}
+              />
+            }
+          />
         </Route>
 
         {/* Not Found pages */}
