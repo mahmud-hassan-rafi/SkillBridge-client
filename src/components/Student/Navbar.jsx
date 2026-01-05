@@ -33,7 +33,6 @@ const Navbar = () => {
       x: rect.x,
       y: rect.y,
     });
-    console.log(rect);
     setTimeout(() => setClickOnProfile((prev) => !prev), 200);
   };
 
@@ -62,17 +61,26 @@ const Navbar = () => {
       {/* desktop view */}
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         {auth?.isAuthenticated ? (
-          <div className="flex items-center gap-5">
-            <button
-              onClick={() => navigate("/instructor/dashboard")}
-              className="cursor-pointer"
-            >
-              {auth?.user?.role === "instructor"
-                ? "Instructor Dashboard"
-                : "Become Instructor"}
-            </button>
-            | <Link to="/my-enrollments">My Enrollments</Link>
-          </div>
+          <>
+            <div className="flex items-center gap-5">
+              <button
+                onClick={() => navigate("/instructor/dashboard")}
+                className="cursor-pointer"
+              >
+                {auth?.user?.role === "instructor"
+                  ? "Instructor Dashboard"
+                  : "Become Instructor"}
+              </button>
+              | <Link to="/my-enrollments">My Enrollments</Link>
+            </div>
+            <img
+              src={auth?.user?.imageUrl}
+              alt=""
+              className="w-10 h-10 rounded-full ml-5 cursor-pointer shadow"
+              onClick={onClickHandler}
+              ref={profilePictureRef}
+            />
+          </>
         ) : (
           <Link
             to={"/login"}
@@ -81,14 +89,6 @@ const Navbar = () => {
             Create Account
           </Link>
         )}
-
-        <img
-          src={auth?.user?.imageUrl}
-          alt=""
-          className="w-10 h-10 rounded-full ml-5 cursor-pointer"
-          onClick={onClickHandler}
-          ref={profilePictureRef}
-        />
       </div>
       {clickOnProfile && (
         <Profile
