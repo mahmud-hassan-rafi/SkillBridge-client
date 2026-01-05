@@ -1,5 +1,6 @@
 import { api } from "@services/api.js";
 import { clearUser, setUser } from "./authSlice.js";
+import { errorNotify, successNotify } from "@utils/toast-notify/toastify.js";
 
 export const authApiEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,16 +10,7 @@ export const authApiEndpoints = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (data) {
-            dispatch(setUser(data.user || data));
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      invalidatesTags: ["User"],
     }),
 
     login: builder.mutation({
@@ -27,16 +19,7 @@ export const authApiEndpoints = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (data) {
-            dispatch(setUser(data.user || data));
-          }
-        } catch (error) {
-          console.log(error.message);
-        }
-      },
+      invalidatesTags: ["User"],
     }),
 
     loadUser: builder.query({
@@ -46,12 +29,13 @@ export const authApiEndpoints = api.injectEndpoints({
           const { data } = await queryFulfilled;
           if (data) {
             dispatch(setUser(data.user || data));
+            console.log("it's rendering");
           }
-        } catch (error) {
-          console.log(error);
+        } catch {
+          dispatch(clearUser());
         }
       },
-      providesTags: ["userAuth"],
+      providesTags: ["userAuth", "User"],
     }),
 
     logout: builder.mutation({
@@ -59,8 +43,14 @@ export const authApiEndpoints = api.injectEndpoints({
       async onQueryStarted(_, { dispatch }) {
         try {
           dispatch(clearUser());
+          successNotify("Signout success");
         } catch (error) {
-          console.log(error);
+          errorNotify(
+            error?.error?.data?.message ||
+              error?.data?.message ||
+              error?.message ||
+              error
+          );
         }
       },
       invalidatesTags: ["userAuth"],
