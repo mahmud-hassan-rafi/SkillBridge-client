@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { assets } from "@assets/assets";
 import { useLoginMutation } from "@features/auth/authApi";
 import { errorNotify } from "@utils/toast-notify/toastify";
+import Loading from "@components/common/Loading";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -11,13 +12,13 @@ const Login = () => {
   });
   const navigate = useNavigate();
 
-  const [login, { isLoading, isError, error }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const res = await login({ ...userData, role: "student" }).unwrap(); // ✅ THIS IS THE KEY
+      const res = await login({ ...userData, role: "student" }).unwrap(); // unwrap()
 
       console.log("Login success:", res);
 
@@ -30,7 +31,7 @@ const Login = () => {
     }
   };
 
-  return (
+  return !isLoading ? (
     <div className=" w-full h-[88vh] flex flex-col md:flex-row  justify-between items-center bg-white md:px-8 xl:px-32">
       <img
         src={assets.login_theme_img}
@@ -98,6 +99,8 @@ const Login = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <Loading />
   );
 };
 
