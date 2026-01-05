@@ -3,8 +3,13 @@ import { useSelector } from "react-redux";
 import { IoMdSettings } from "react-icons/io";
 import { PiSignOut } from "react-icons/pi";
 import { useAppContext } from "@context/AppContext";
+import { useLogoutMutation } from "@features/auth/authApi";
+import { useNavigate } from "react-router-dom";
 
 const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
+  const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.auth?.user);
   const { capitalize } = useAppContext();
 
@@ -16,10 +21,9 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
         left: profilePosition.x,
         transform: "translateX(-90%) translateY(5%)",
       }}
-      onClick={() => setClickOnProfile(false)}
     >
       {/* profile */}
-      <div className="flex items-center gap-4 border-b border-b-gray-200/70 p-3 hover:bg-gray-300/20 w-full cursor-pointer transition-colors">
+      <div className="flex items-center gap-4 border-b border-b-gray-200/70 p-3  w-full transition-colors">
         <span className="flex w-[15%] items-center justify-center">
           <img
             src={user?.imageUrl}
@@ -38,10 +42,10 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
 
       {/* manage accounts */}
       <div
-        className="flex items-center gap-4 border-b border-b-gray-200/70 px-3 py-4 hover:bg-gray-300/20 w-full cursor-pointer transition-colors"
+        className="flex items-center gap-4 border-b border-b-gray-200/70 px-3 py-4 hover:bg-black/5 w-full cursor-pointer transition-colors"
         onClick={() => {
           setManageAccount(true);
-          console.log("click on manage account");
+          setClickOnProfile(false);
         }}
       >
         <span className="flex w-[15%] items-center justify-center">
@@ -55,7 +59,14 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
       </div>
 
       {/* signout */}
-      <div className="flex items-center gap-4 px-3 py-4 hover:bg-gray-300/20 w-full cursor-pointer transition-colors">
+      <div
+        className="flex items-center gap-4 px-3 py-4 hover:bg-black/5 w-full cursor-pointer transition-colors "
+        onClick={() => {
+          logout();
+          setClickOnProfile(false);
+          navigate("/");
+        }}
+      >
         <span className="flex w-[15%] items-center justify-center">
           <PiSignOut className="h-5 w-5 text-gray-800/80 " />
         </span>
