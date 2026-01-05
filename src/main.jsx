@@ -6,6 +6,7 @@ import { AppContextProvider } from "./context/AppContext.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "@stores/store.js";
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,8 +14,17 @@ createRoot(document.getElementById("root")).render(
       <AppContextProvider>
         <BrowserRouter>
           <App />
+
+          {window.addEventListener("load", () => {
+            const preloader = document.getElementById("preloader");
+
+            if (preloader) {
+              preloader.style.display = "none";
+            }
+          })}
         </BrowserRouter>
       </AppContextProvider>
     </Provider>
+    <ToastContainer />
   </StrictMode>
 );
