@@ -1,5 +1,3 @@
-import Instructor from "@pages/Instructor/Instructor";
-import Home from "@pages/Student/Home";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +14,7 @@ const RootRedirect = ({ isLoading }) => {
     ) {
       navigate("/home");
     } else if (user?.role === "instructor") {
-      navigate("/instructor");
+      navigate("/instructor/dashboard");
     }
   }, [navigate, user, isLoading]);
 

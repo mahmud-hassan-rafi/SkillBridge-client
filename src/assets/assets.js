@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
-import logo_dark from "./logo_dark.svg";
+import logo from "./logo.png";
+import logo_dark from "./logo_dark.png";
 import search_icon from "./search_icon.svg";
 import cross_icon from "./cross_icon.svg";
 import upload_area from "./upload_area.svg";
@@ -45,8 +45,17 @@ import lesson_icon from "./lesson_icon.svg";
 import login_theme_img from "./Login_theme_img.jpg";
 import male_user from "./male-user.jpg";
 import female_user from "./female-user.jpg";
+import become_instructor_billboard from "./become-instructor-billboard.webp";
+// --------
+import value_prop_get_rewarded from "./value-prop-get-rewarded.webp";
+import value_prop_inspire from "./value-prop-inspire.webp";
+import value_prop_teach from "./value-prop-teach.webp";
+import instructor_login_page_image from "./instructor_login_page_image.webp";
 
 export const assets = {
+  value_prop_get_rewarded,
+  value_prop_inspire,
+  value_prop_teach,
   logo,
   search_icon,
   sketch,
@@ -94,6 +103,8 @@ export const assets = {
   login_theme_img,
   male_user,
   female_user,
+  become_instructor_billboard,
+  instructor_login_page_image,
 };
 
 export const dummyEducatorData = {
