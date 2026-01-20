@@ -13,16 +13,19 @@ import MyCourses from "@pages/Instructor/MyCourses";
 import StudentsEnrolled from "@pages/Instructor/StudentsEnrolled";
 import MainLayoutStudent from "@layouts/MainLayoutStudent";
 import PageNotFound from "@pages/common/PageNotFound";
-import Instructor from "@pages/Instructor/Instructor";
+import BecomeInstructor from "@pages/Instructor/BecomeInstructor";
 import Login from "@pages/Student/Login";
 import Signup from "@pages/Student/Signup";
-// import InstructorLogin from "@pages/Instructor/InstructorLogin";
-// import InstructorSignup from "@pages/Instructor/InstructorSignup";
 import PrivateRoutes from "@components/common/PrivateRoutes";
 import { useLoadUserQuery } from "@features/auth/authApi";
 import ScrollToTop from "@components/common/ScrollToTop";
 import "quill/dist/quill.snow.css";
 import RootRedirect from "@utils/RootRedirect";
+import InstructorLayout from "@layouts/InstructorLayout";
+import BecomeInstructorOnboardingLayout from "@layouts/BecomeInstructorOnboardingLayout";
+import TeachingExperienceOnboarding from "@pages/Instructor/become-instructor/TeachingExperienceOnboarding";
+import VideoExperienceOnboarding from "@pages/Instructor/become-instructor/VideoExperienceOnboarding";
+import ExistingAudienceOnboarding from "@pages/Instructor/become-instructor/ExistingAudienceOnboarding";
 
 const App = () => {
   const { isLoading } = useLoadUserQuery();
@@ -61,10 +64,28 @@ const App = () => {
           <Route path="/loading/:path" element={<Loading />} />
         </Route>
         {/* Teacher routes ⬇ */}
-        <Route path="/instructor" element={<Instructor />}>
-          <Route index={true} element={<Navigate to={"dashboard"} />} />
-          {/* <Route path="login" element={<InstructorLogin />} />
-          <Route path="signup" element={<InstructorSignup />} /> */}
+        {/* become instructor */}
+        <Route path="/become-instructor" element={<BecomeInstructor />} />
+        <Route
+          path="/become-instructor/onboarding"
+          element={<BecomeInstructorOnboardingLayout />}
+        >
+          <Route
+            path="teaching-experience"
+            element={<TeachingExperienceOnboarding />}
+          />
+          <Route
+            path="video-experience"
+            element={<VideoExperienceOnboarding />}
+          />
+          <Route
+            path="existing-audience"
+            element={<ExistingAudienceOnboarding />}
+          />
+        </Route>
+
+        {/* already instructor */}
+        <Route path="/instructor" element={<InstructorLayout />}>
           <Route
             path="dashboard"
             element={
