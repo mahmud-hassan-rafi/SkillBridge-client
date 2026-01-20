@@ -9,6 +9,12 @@ export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [allCourses, setAllCourses] = useState([]);
   const [manageAccount, setManageAccount] = useState(false);
+  const [becomeInstructorOnboardingStep, setBecomeInstructorOnboardingStep] =
+    useState(1);
+  const [
+    becomeInstructorOnboardingStepPercentange,
+    setBecomeInstructorOnboardingStepPercentange,
+  ] = useState(Math.ceil((1 / 3) * 100));
 
   // fetch all courses
   useEffect(() => {
@@ -34,7 +40,7 @@ export const AppContextProvider = ({ children }) => {
   const calculateChapterTime = (chapter) => {
     const totalTime = chapter?.chapterContent?.reduce(
       (prevTotal, lecture) => (prevTotal += lecture?.lectureDuration),
-      0
+      0,
     );
     return humanizeDuration(totalTime * 60 * 1000, { units: ["h", "m"] });
   };
@@ -44,13 +50,13 @@ export const AppContextProvider = ({ children }) => {
     const calculateChapterTime = (chapter) => {
       return chapter?.chapterContent.reduce(
         (total, lecture) => total + lecture?.lectureDuration,
-        0
+        0,
       );
     };
 
     const totalTime = course?.courseContent.reduce(
       (prevTotal, chapter) => (prevTotal += calculateChapterTime(chapter)),
-      0
+      0,
     );
     return humanizeDuration(totalTime * 60 * 1000, { units: ["h", "m"] });
   };
@@ -63,13 +69,38 @@ export const AppContextProvider = ({ children }) => {
           return (prevTotal += chapter?.chapterContent.length);
         }
       },
-      0
+      0,
     );
     return totalLectures;
   };
 
   // for capitalize name
   const capitalize = (str) => (str ? str[0].toUpperCase() + str.slice(1) : "");
+
+  // become instructor onboarding step counting;
+  const handleClickOnboardingContinue = () => {
+    setBecomeInstructorOnboardingStep((prev) => {
+      if (prev < 3) {
+        return prev + 1;
+      }
+
+      return prev;
+    });
+    setBecomeInstructorOnboardingStepPercentange((prev) => {
+      if (prev < 100) {
+        return prev + Math.round((1 / 3) * 100);
+      }
+
+      return prev;
+    });
+  };
+
+  const handleClickOnboardingPrevious = () => {
+    setBecomeInstructorOnboardingStep((prev) => prev - 1);
+    setBecomeInstructorOnboardingStepPercentange(
+      (prev) => prev - Math.round((1 / 3) * 100),
+    );
+  };
 
   const value = {
     currency,
@@ -81,6 +112,10 @@ export const AppContextProvider = ({ children }) => {
     capitalize,
     manageAccount,
     setManageAccount,
+    handleClickOnboardingContinue,
+    handleClickOnboardingPrevious,
+    becomeInstructorOnboardingStep,
+    becomeInstructorOnboardingStepPercentange,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
