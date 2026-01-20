@@ -51,7 +51,7 @@ const Navbar = () => {
       <img
         src={assets.logo}
         alt="Logo"
-        className="w-28 lg:w-32 cursor-pointer"
+        className="w-28 h-10 object-center object-cover lg:w-32 cursor-pointer"
         onClick={(e) => {
           e.stopPropagation();
           navigate("/");
@@ -64,7 +64,15 @@ const Navbar = () => {
           <>
             <div className="flex items-center gap-5">
               <button
-                onClick={() => navigate("/instructor/dashboard")}
+                onClick={() =>
+                  navigate(
+                    `${
+                      auth?.user?.role === "instructor"
+                        ? "/instructor/dashboard"
+                        : "/become-instructor"
+                    }`
+                  )
+                }
                 className="cursor-pointer"
               >
                 {auth?.user?.role === "instructor"
@@ -108,7 +116,7 @@ const Navbar = () => {
                   `${
                     auth?.user?.role === "instructor"
                       ? "/instructor/dashboard"
-                      : "/instructor"
+                      : "/become-instructor"
                   }`
                 )
               }

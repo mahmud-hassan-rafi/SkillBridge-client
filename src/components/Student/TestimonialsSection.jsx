@@ -7,7 +7,8 @@ const TestimonialSection = () => {
       <h2 className="text-3xl font-medium text-gray-800">Testimonials</h2>
       <p className="md:text-base text-gray-900 mt-3">
         Hear from our learners as they share their journeys of transformation,
-        success, and how our <br /> platform has a difference in their lives{" "}
+        success, and how our <br /> platform has a difference in their
+        lives{" "}
       </p>
       <div className="grid grid-cols-auto gap-8 mt-14">
         {dummyTestimonial?.map((testimonial, idx) => (
