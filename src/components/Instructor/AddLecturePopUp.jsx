@@ -64,7 +64,7 @@ bg-gray-800/40 bg-opacity-50 rounded-lg"
         aria-modal={"true"}
       >
         <div
-          className="bg-white text-gray-70@ p-4 rounded relative w-full
+          className="bg-white text-gray-700 p-4 rounded relative w-full
 max-w-80"
         >
           <h2 className="text-lg font-semibold mb-4">Add Lecture</h2>

@@ -9,7 +9,7 @@ const Navbar = () => {
       <img
         src={assets.logo}
         alt=""
-        className="cursor-pointer"
+        className="cursor-pointer w-28 h-10 object-center object-cover lg:w-32"
         onClick={() => navigate("/")}
       />
       <div className="flex gap-4 items-center">
