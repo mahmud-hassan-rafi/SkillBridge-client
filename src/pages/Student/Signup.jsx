@@ -69,19 +69,17 @@ const Signup = () => {
       }
     }
   };
-
-  console.log(userData);
-
   return (
-    <div className=" w-full h-[88vh] flex flex-col md:flex-row  justify-between items-center bg-white md:px-8 xl:px-32 2xl:">
+    <div className=" w-full h-[88vh] md:h-screen flex flex-col lg:flex-row  justify-between items-center bg-white md:px-8 xl:px-32 ">
       <img
         src={assets.login_theme_img}
-        className="mt-8 hidden md:flex sm:mt-2 md:w-100 md:h-40 lg:w-100"
+        className="mt-8 hidden lg:flex sm:mt-2 w-[clamp(200px,30vw+1rem,400px)] md:h-40"
         alt=""
         draggable={false}
       />
-      <div className="w-full sm:w-90 h-full py-3 md:w-100 lg:w-110 flex flex-col items-center justify-between bg-white px-8 rounded-lg">
-        <div className="w-full md:h-[75vh] flex flex-col items-center">
+      <div className="w-full sm:w-100 h-full py-3 md:w-120 lg:w-110 flex flex-col gap-2 max-lg:items-center bg-white px-8 rounded-lg justify-between md:overflow-y-auto">
+        {/* form */}
+        <div className="w-full md:h-[75vh] flex flex-col items-center ">
           <form className="flex flex-col" onSubmit={handleOnSubmit}>
             <label htmlFor="name" className="text-[18px] font-bold mb-2">
               Enter your name
@@ -231,7 +229,7 @@ const Signup = () => {
               Create Student Account
             </button>
           </form>
-          <span className="flex justify-center gap-x-2 font-semibold mt-2">
+          <span className="flex justify-center gap-x-2 flex-wrap font-semibold mt-2">
             <p>Have an account on SkillBridge?</p>
             <Link to={"/login"} className="text-blue-700">
               Login now
@@ -239,6 +237,7 @@ const Signup = () => {
           </span>
         </div>
 
+        {/* terms and conditions */}
         <p className="text-sm font-semibold">
           Read our guideline of{" "}
           <span className="underline">Privacy and policy</span> and{" "}

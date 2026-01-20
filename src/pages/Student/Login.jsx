@@ -32,16 +32,16 @@ const Login = () => {
   };
 
   return !isLoading ? (
-    <div className=" w-full h-[88vh] flex flex-col md:flex-row  justify-between items-center bg-white md:px-8 xl:px-32">
+    <div className=" w-full h-[88vh] flex flex-col md:flex-row justify-between items-center bg-white md:px-8 xl:px-32">
       <img
         src={assets.login_theme_img}
-        className="mt-8 sm:mt-2 md:w-100 md:h-40 lg:w-100"
+        className="mt-8 sm:mt-2 w-[clamp(200px,30vw+1rem,400px)] md:h-40 "
         alt=""
         draggable={false}
       />
-      <div className="w-full sm:w-90 h-[75vh] md:w-100 lg:w-110 flex flex-col items-center justify-between bg-white px-8 rounded-lg">
-        <div className="w-full md:h-[calc(75vh)] flex flex-col items-center">
-          <p className="mx-auto mt-4 text-[17px]">
+      <div className="w-full sm:w-90 h-[75vh] md:w-100 lg:w-110 flex flex-col items-center bg-white px-8 rounded-lg">
+        <div className="w-full md:h-full flex flex-col items-center gap-5 justify-center mb-10">
+          <p className="mx-auto mt-4 text-[clamp(22px,2vw+0.5rem,32px)] font-medium text-center">
             Login to continue your learning journey
           </p>
           <form className="flex flex-col mt-4 w-full" onSubmit={handleOnSubmit}>
@@ -89,14 +89,14 @@ const Login = () => {
             </Link>
           </span>
         </div>
-        <div className="flex w-full">
+        {/* <div className="flex w-full">
           <Link
             to={"/instructor/login"}
             className="bg-cyan-600 w-full text-white font-semibold rounded p-3 text-center text-base "
           >
             Log In with your organization
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   ) : (
