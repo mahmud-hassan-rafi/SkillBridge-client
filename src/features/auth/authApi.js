@@ -25,13 +25,16 @@ export const authApiEndpoints = api.injectEndpoints({
     loadUser: builder.query({
       query: () => "/auth/me",
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        console.log("we are in loadUser query");
         try {
           const { data } = await queryFulfilled;
+          console.log(data);
           if (data) {
             dispatch(setUser(data.user || data));
             console.log("it's rendering");
           }
-        } catch {
+        } catch (error) {
+          console.log(error);
           dispatch(clearUser());
         }
       },
@@ -49,7 +52,7 @@ export const authApiEndpoints = api.injectEndpoints({
             error?.error?.data?.message ||
               error?.data?.message ||
               error?.message ||
-              error
+              error,
           );
         }
       },
