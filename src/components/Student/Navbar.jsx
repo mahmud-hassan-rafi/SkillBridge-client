@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import ManageAccount from "./ManageAccount/ManageAccount";
 import { useAppContext } from "@context/AppContext";
+import { CgMenuRightAlt } from "react-icons/cg";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,8 @@ const Navbar = () => {
 
   const { manageAccount, setManageAccount } = useAppContext();
   // profile picture
-  const onClickHandler = () => {
+  const onClickHandler = (e) => {
+    e.stopPropagation();
     const rect = profilePictureRef.current.getBoundingClientRect();
 
     setProfilePosition({
@@ -42,12 +44,14 @@ const Navbar = () => {
 
   return (
     <div
-      className={`flex items-center justify-between px-2 xs:px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${
+      className={`w-full flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${
         isCourseListPath || isLoginPath || isSignUpPath
           ? "bg-white"
           : "bg-cyan-100/70"
       }`}
     >
+      <CgMenuRightAlt className="md:hidden size-5" />
+
       <img
         src={assets.logo}
         alt="Logo"
@@ -59,10 +63,10 @@ const Navbar = () => {
         draggable={false}
       />
       {/* desktop view */}
-      <div className="hidden md:flex items-center gap-5 text-gray-500">
+      <div className="flex items-center gap-5 text-gray-500">
         {auth?.isAuthenticated ? (
           <>
-            <div className="flex items-center gap-5">
+            <div className="hidden md:flex items-center gap-5">
               <button
                 onClick={() =>
                   navigate(
@@ -107,27 +111,9 @@ const Navbar = () => {
       )}
       {manageAccount && <ManageAccount />}
       {/* mobile view */}
-      <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
+      {/* <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
         {auth?.isAuthenticated ? (
           <div className="flex items-center text-xs xs:text-sm sm:text-base gap-2 sm:gap-3">
-            {/* <button
-              onClick={() =>
-                navigate(
-                  `${
-                    auth?.user?.role === "instructor"
-                      ? "/instructor/dashboard"
-                      : "/become-instructor"
-                  }`
-                )
-              }
-              className="cursor-pointer"
-            >
-              {auth?.user?.role === "instructor"
-                ? "Instructor Dashboard"
-                : "Become Instructor"}
-            </button>
-            | <Link to="/my-enrollments">My Enrollments</Link> */}
-
             <img
               src={auth?.user?.imageUrl}
               alt=""
@@ -143,7 +129,7 @@ const Navbar = () => {
             </button>
           </Link>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

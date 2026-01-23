@@ -21,8 +21,8 @@ const CoursesList = () => {
         input
           ? setFilteredCourses(
               tempCourses.filter((course) =>
-                course.courseTitle.toLowerCase().includes(input.toLowerCase())
-              )
+                course.courseTitle.toLowerCase().includes(input.toLowerCase()),
+              ),
             )
           : setFilteredCourses(tempCourses);
       }
@@ -68,7 +68,7 @@ const CoursesList = () => {
             />
           </div>
         )}
-        <div className="grid px-4 md:px-0 md:my-16 my-10 gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid md:px-0 md:my-16 my-10 gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course, idx) => (
               <CourseCard key={idx} course={course} />

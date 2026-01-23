@@ -17,6 +17,10 @@
   font-family: Outfit;
 }
 
+body {
+  box-sizing: border-box;
+}
+
 @utility grid-cols-auto {
   grid-template-columns: var(--grid-cols-auto);
 }

@@ -15,7 +15,7 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
 
   return (
     <div
-      className={`z-20 fixed flex flex-col justify-center items-start bg-white min-w-80 md:min-w-80 h-auto rounded-xl shadow`}
+      className={`z-20 fixed flex flex-col justify-center items-start bg-white min-w-80 h-auto rounded-xl shadow`}
       style={{
         top: profilePosition.bottom,
         left: profilePosition.x,
