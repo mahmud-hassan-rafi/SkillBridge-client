@@ -70,7 +70,7 @@ const Navbar = () => {
                       auth?.user?.role === "instructor"
                         ? "/instructor/dashboard"
                         : "/become-instructor"
-                    }`
+                    }`,
                   )
                 }
                 className="cursor-pointer"
@@ -110,7 +110,7 @@ const Navbar = () => {
       <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
         {auth?.isAuthenticated ? (
           <div className="flex items-center text-xs xs:text-sm sm:text-base gap-2 sm:gap-3">
-            <button
+            {/* <button
               onClick={() =>
                 navigate(
                   `${
@@ -126,7 +126,15 @@ const Navbar = () => {
                 ? "Instructor Dashboard"
                 : "Become Instructor"}
             </button>
-            | <Link to="/my-enrollments">My Enrollments</Link>
+            | <Link to="/my-enrollments">My Enrollments</Link> */}
+
+            <img
+              src={auth?.user?.imageUrl}
+              alt=""
+              className="w-10 h-10 rounded-full ml-5 cursor-pointer shadow"
+              onClick={onClickHandler}
+              ref={profilePictureRef}
+            />
           </div>
         ) : (
           <Link to={"/login"}>
