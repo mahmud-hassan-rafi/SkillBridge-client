@@ -43,8 +43,8 @@ import profile_img2 from "./profile_img2.png";
 import profile_img3 from "./profile_img3.png";
 import lesson_icon from "./lesson_icon.svg";
 import login_theme_img from "./Login_theme_img.jpg";
-import male_user from "./male-user.jpg";
-import female_user from "./female-user.jpg";
+import male_user from "/avater/male-user.jpg";
+import female_user from "/avater/female-user.jpg";
 import become_instructor_billboard from "./become-instructor-billboard.webp";
 // --------
 import value_prop_get_rewarded from "./value-prop-get-rewarded.webp";
