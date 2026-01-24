@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import ManageAccount from "./ManageAccount/ManageAccount";
 import { useAppContext } from "@context/AppContext";
 import { CgMenuRightAlt } from "react-icons/cg";
+import SidebarOnMobileView from "./home/SidebarOnMobileView";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -15,12 +16,31 @@ const Navbar = () => {
   const isLoginPath = location.pathname.includes("/login");
   const isSignUpPath = location.pathname.includes("/signup");
 
+  const menubarRef = useRef();
+  const [menubarPosition, setMenubarPosition] = useState(null);
+  const [clickOnMenubar, setClickOnMenubar] = useState(false);
+
+  const handleClickOnMenubar = () => {
+    const rect = menubarRef.current.getBoundingClientRect();
+
+    setMenubarPosition({
+      top: rect.top,
+      bottom: rect.bottom,
+      right: rect.right,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+      x: rect.x,
+      y: rect.y,
+    });
+    setTimeout(() => setClickOnMenubar((prev) => !prev), 100);
+  };
+
+  // profile picture
   const profilePictureRef = useRef();
   const [profilePosition, setProfilePosition] = useState(null);
   const [clickOnProfile, setClickOnProfile] = useState(false);
 
-  const { manageAccount, setManageAccount } = useAppContext();
-  // profile picture
   const onClickHandler = (e) => {
     e.stopPropagation();
     const rect = profilePictureRef.current.getBoundingClientRect();
@@ -35,11 +55,15 @@ const Navbar = () => {
       x: rect.x,
       y: rect.y,
     });
-    setTimeout(() => setClickOnProfile((prev) => !prev), 200);
+    setTimeout(() => setClickOnProfile((prev) => !prev), 100);
   };
+
+  const { manageAccount, setManageAccount } = useAppContext();
+  // menubar
 
   window.addEventListener("scroll", () => {
     setClickOnProfile(false);
+    setClickOnMenubar(false);
   });
 
   return (
@@ -50,8 +74,20 @@ const Navbar = () => {
           : "bg-cyan-100/70"
       }`}
     >
-      <CgMenuRightAlt className="md:hidden size-5" />
-
+      {auth?.isAuthenticated && (
+        <CgMenuRightAlt
+          className="md:hidden size-5 cursor-pointer"
+          onClick={handleClickOnMenubar}
+          ref={menubarRef}
+        />
+      )}
+      {clickOnMenubar && (
+        <SidebarOnMobileView
+          setClickOnMenubar={setClickOnMenubar}
+          menubarPosition={menubarPosition}
+          auth={auth}
+        />
+      )}
       <img
         src={assets.logo}
         alt="Logo"
@@ -94,12 +130,17 @@ const Navbar = () => {
             />
           </>
         ) : (
-          <Link
-            to={"/login"}
-            className="bg-blue-600 text-white px-5 py-2 rounded-full"
-          >
-            Create Account
-          </Link>
+          <>
+            <Link
+              to={"/login"}
+              className="max-md:hidden bg-blue-600 text-white px-5 py-2 rounded-full"
+            >
+              Create Account
+            </Link>
+            <Link to={"/login"} className="md:hidden">
+              <img src={assets.user_icon} alt="" />
+            </Link>
+          </>
         )}
       </div>
       {clickOnProfile && (

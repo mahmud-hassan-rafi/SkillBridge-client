@@ -19,7 +19,6 @@ const AddLecturePopUp = ({
         },
       };
     });
-  console.log(courseData);
 
   const addLecture = () => {
     setCourseData((prev) => ({
@@ -40,7 +39,7 @@ const AddLecturePopUp = ({
                 },
               ],
             }
-          : chapter
+          : chapter,
       ),
     }));
 

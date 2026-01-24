@@ -33,8 +33,6 @@ const Signup = () => {
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
-    console.log(userData);
-    console.log(state);
     if (!isPasswordMatchWithConfirm) {
       errorNotify("password not matched with confirm password");
       return;
@@ -58,7 +56,6 @@ const Signup = () => {
       });
       navigate("/");
     } catch (error) {
-      console.log(error);
       navigate(error?.data?.navigate);
       if (error?.data?.errors) {
         error?.data?.errors.map((err) => {

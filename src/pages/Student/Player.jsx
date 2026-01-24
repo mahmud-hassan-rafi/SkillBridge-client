@@ -16,7 +16,6 @@ const Player = () => {
     const course = allCourses?.find((course) => course._id === courseId);
     return course;
   }, [courseId, allCourses]);
-  console.log(courseData);
 
   return (
     <>

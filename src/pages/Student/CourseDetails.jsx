@@ -33,7 +33,7 @@ const CourseDetails = () => {
   return (
     <>
       <div
-        className="flex md:flex-row flex-col-reverse gap-10 relative items-start
+        className="flex md:flex-row flex-col-reverse gap-10 relative items-center md:items-start
 justify-between md:px-8 lg:px-16 xl:px-24 2xl:px-32 px-8 md:pt-20 pt-6 text-left"
       >
         {/* bg */}

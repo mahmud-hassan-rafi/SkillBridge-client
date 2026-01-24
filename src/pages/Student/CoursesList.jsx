@@ -68,7 +68,7 @@ const CoursesList = () => {
             />
           </div>
         )}
-        <div className="grid md:px-0 md:my-16 my-10 gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid px-2 md:px-0 md:my-16 my-10 gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredCourses.length > 0 ? (
             filteredCourses.map((course, idx) => (
               <CourseCard key={idx} course={course} />

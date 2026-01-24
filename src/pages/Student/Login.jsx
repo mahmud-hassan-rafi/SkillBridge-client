@@ -18,14 +18,11 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const res = await login({ ...userData, role: "student" }).unwrap(); // unwrap()
-
-      console.log("Login success:", res);
+      await login({ ...userData, role: "student" }).unwrap(); // unwrap()
 
       setUserData({ email: "", password: "" });
       navigate("/");
     } catch (err) {
-      console.log("Login error:", err?.data);
       errorNotify(err?.data?.message || err?.message || err);
       navigate(err?.data?.navigate);
     }

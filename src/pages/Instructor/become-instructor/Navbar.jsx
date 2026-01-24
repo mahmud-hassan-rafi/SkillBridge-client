@@ -11,8 +11,6 @@ const Navbar = () => {
     becomeInstructorOnboardingStepPercentange,
   } = useAppContext();
 
-  console.log(becomeInstructorOnboardingStepPercentange);
-
   return (
     <div className="sticky top-0 h-20 z-100 shadow w-full bg-white overflow-hidden flex flex-col items-center">
       <div className="w-full h-[90%] gap-1 px-[clamp(8px,3vw+0.5rem,72px)] items-center grid grid-cols-[auto_auto_1fr] ">
