@@ -4,12 +4,13 @@ import { MdOutlineSecurity } from "react-icons/md";
 
 const ManageAccountNavbar = ({ clickedOn, setClickedOn }) => {
   return (
-    <div className="md:w-[27%] min-w-15 bg-gray-200/60 md:p-4 flex flex-col gap-2">
+    <div className=" bg-gray-200/60 md:p-4 flex flex-col gap-2">
       <div className="hidden md:flex flex-col mb-4">
         <h2 className="text-2xl font-semibold">Account</h2>
         <h4 className="text-sm text-gray-700/70">Manage your account info</h4>
       </div>
       <div className="flex flex-col">
+        {/* profile details tab */}
         <span
           onClick={() => setClickedOn("profile")}
           className={`flex gap-3 w-full p-2 max-md:py-3 items-center max-md:justify-center rounded  ${
@@ -21,6 +22,8 @@ const ManageAccountNavbar = ({ clickedOn, setClickedOn }) => {
           <FaUserCircle className="text-2xl md:text-sm" />
           <p className="text-sm hidden md:flex">Profile</p>
         </span>
+
+        {/* security tab */}
         <span
           onClick={() => setClickedOn("security")}
           className={`flex gap-3 w-full p-2 max-md:py-3 items-center max-md:justify-center rounded ${

@@ -2,13 +2,24 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { BsFillLaptopFill } from "react-icons/bs";
 import { FaMobileScreen } from "react-icons/fa6";
+import { assets } from "@assets/assets";
+import { useAppContext } from "@context/AppContext";
 
 const SecurityDetails = () => {
   const user = useSelector((state) => state.auth?.user);
+  const { setManageAccount } = useAppContext();
 
   return (
     <div className="flex flex-col">
-      <h2 className="ml-5 text-lg font-semibold">Security</h2>
+      <div className="flex px-3 sm:px-5 w-full justify-between items-center">
+        <h2 className=" text-lg font-semibold">Security</h2>
+        <img
+          src={assets.cross_icon}
+          alt=""
+          className="size-3 cursor-pointer"
+          onClick={() => setManageAccount(false)}
+        />
+      </div>
 
       {/* desktop view */}
       {/* password */}
