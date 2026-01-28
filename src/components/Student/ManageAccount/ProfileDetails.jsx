@@ -12,7 +12,7 @@ const ProfileDetails = () => {
   const { capitalize, setManageAccount } = useAppContext();
 
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden w-auto">
       {/* title */}
       <div className="flex px-3 sm:px-5 w-full justify-between items-center">
         <h2 className=" text-lg font-semibold">Profile details</h2>
