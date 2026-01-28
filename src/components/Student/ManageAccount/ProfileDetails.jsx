@@ -12,46 +12,46 @@ const ProfileDetails = () => {
   const { capitalize, setManageAccount } = useAppContext();
 
   return (
-    <div className="flex flex-col overflow-hidden w-auto">
+    <div className="flex flex-col overflow-hidden">
       {/* title */}
       <div className="flex px-3 sm:px-5 w-full justify-between items-center">
         <h2 className=" text-lg font-semibold">Profile details</h2>
         <img
           src={assets.cross_icon}
           alt=""
-          className="size-3 cursor-pointer max-sm:mr-3.5 mr-2"
+          className="size-3 cursor-pointer mr-1"
           onClick={() => setManageAccount(false)}
         />
       </div>
 
       {/* profile */}
-      <div className="grid grid-cols-[80%_20%] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[30%_50%_20%] gap-2 w-full p-3 sm:p-5 items-center">
+      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[1fr_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
         <h4 className="text-sm font-medium">Profile</h4>
-        <span className="hidden sm:flex gap-3 items-center">
+        <span className="hidden sm:flex gap-3 items-center min-w-0">
           <img
             src={user?.imageUrl}
             alt=""
-            className="profile_image rounded-full"
+            className="profile_image rounded-full shrink-0"
           />
-          <h6 className="text-sm font-medium">
+          <h6 className="text-sm font-medium truncate">
             {capitalize(user.fullname?.firstname)}{" "}
             {capitalize(user.fullname?.lastname)}
           </h6>
         </span>
-        <span className="flex items-center gap-1.5 max-lg:ml-auto max-lg:mr-5 cursor-pointer">
+        <span className="flex items-center gap-1.5 cursor-pointer shrink-0">
           <LuUserRoundPen className="text-lg text-gray-700/70 font-medium cursor-pointer" />
-          <p className="max-lg:hidden font-medium text-xs text-gray-900/70">
+          <p className="max-lg:hidden font-medium text-xs text-gray-900/70 whitespace-nowrap">
             Update profile
           </p>
         </span>
 
-        <span className="flex sm:hidden gap-3 items-center">
+        <span className="flex sm:hidden gap-3 items-center min-w-0 col-span-2">
           <img
             src={user?.imageUrl}
             alt=""
-            className="size-12 ml-2.5 rounded-full"
+            className="size-10 rounded-full shrink-0"
           />
-          <h6 className="text-sm font-medium">
+          <h6 className="text-sm font-medium min-w-0 truncate">
             {capitalize(user.fullname?.firstname)}{" "}
             {capitalize(user.fullname?.lastname)}
           </h6>
@@ -59,49 +59,57 @@ const ProfileDetails = () => {
       </div>
 
       {/* email addresses */}
-      <div className="grid grid-cols-[80%_20%] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[30%_50%_20%] gap-2 w-full p-3 sm:p-5 items-center">
+      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[1fr_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
         <h4 className="text-sm font-medium">Email addresses</h4>
-        <span className="hidden sm:flex flex-col gap-3 items-start">
-          <span className="flex gap-1 items-center">
-            <p className="text-xs font-normal text-gray-800">{user?.email}</p>
-            <span className="py-0.5 px-1 rounded bg-blue-100/80 text-xs">
+        <span className="hidden sm:flex flex-col gap-3 items-start min-w-0">
+          <span className="flex gap-1 items-center min-w-0">
+            <p className="text-xs font-normal text-gray-800 truncate">
+              {user?.email}
+            </p>
+            <span className="py-0.5 px-1 rounded bg-blue-100/80 text-xs shrink-0">
               primary
             </span>
           </span>
 
-          <button className="flex gap-1 items-center text-sm cursor-pointer">
-            <FiPlus className="text-base font-normal" /> Add email addresses
+          <button className="flex gap-1 items-center text-sm cursor-pointer min-w-0 shrink-0">
+            <FiPlus className="text-base font-normal shrink-0" /> Add email
+            addresses
           </button>
         </span>
-        <HiOutlineDotsHorizontal className="text-lg text-gray-700/70 font-medium cursor-pointer ml-auto mr-5" />
+        <HiOutlineDotsHorizontal className="text-lg text-gray-700/70 font-medium cursor-pointer shrink-0" />
 
-        <span className="flex sm:hidden flex-col gap-3 items-start ml-2.5">
-          <span className="flex gap-1 items-center">
-            <p className="text-xs font-normal text-gray-800">{user?.email}</p>
-            <span className="py-0.5 px-1 rounded bg-blue-100/80 text-xs">
+        <span className="flex sm:hidden flex-col gap-3 items-start col-span-2">
+          <span className="flex gap-1 items-center min-w-0">
+            <p className="text-xs font-normal text-gray-800 truncate">
+              {user?.email}
+            </p>
+            <span className="py-0.5 px-1 rounded bg-blue-100/80 text-xs shrink-0">
               primary
             </span>
           </span>
 
           <button className="flex gap-1 items-center text-sm cursor-pointer">
-            <FiPlus className="text-base font-normal" /> Add email addresses
+            <FiPlus className="text-base font-normal shrink-0" /> Add email
+            addresses
           </button>
         </span>
       </div>
 
       {/* connected accounts */}
-      <div className="grid grid-cols-[80%_20%] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[30%_50%_20%] gap-2 w-full p-3 sm:p-5 items-center">
-        <h4 className="text-sm font-medium">Connected accounts</h4>
-        <span className="hidden sm:flex flex-col gap-3 items-start">
-          <button className="flex gap-1 items-center text-sm cursor-pointer px-3 py-2 border border-gray-300/70 rounded">
-            <FcGoogle className="text-base font-normal" /> Connect to Google
+      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[1fr_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
+        <h4 className="text-sm font-medium min-w-0">Connected accounts</h4>
+        <span className="hidden sm:flex flex-col gap-3 items-start min-w-0">
+          <button className="flex gap-1 items-center text-sm cursor-pointer px-3 py-2 border border-gray-300/70 rounded shrink-0">
+            <FcGoogle className="text-base font-normal shrink-0" /> Connect to
+            Google
           </button>
         </span>
-        <HiOutlineDotsHorizontal className="text-lg text-gray-700/70 font-medium cursor-pointer ml-auto mr-5" />
+        <HiOutlineDotsHorizontal className="text-lg text-gray-700/70 font-medium cursor-pointer shrink-0" />
 
-        <span className="flex sm:hidden flex-col gap-3 items-start">
+        <span className="flex sm:hidden flex-col gap-3 items-start col-span-2">
           <button className="flex gap-1 items-center text-sm cursor-pointer px-3 py-2 border border-gray-300/70 rounded">
-            <FcGoogle className="text-base font-normal" /> Connect to Google
+            <FcGoogle className="text-base font-normal shrink-0" /> Connect to
+            Google
           </button>
         </span>
       </div>
