@@ -1,15 +1,20 @@
 import { useAppContext } from "@context/AppContext";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { LuUserRoundPen } from "react-icons/lu";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { FiPlus } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
 import { assets } from "@assets/assets";
+import UpdateProfileTab from "./update/UpdateProfileTab";
+import UpdateEmailTab from "./update/UpdateEmailTab";
+import { FaPenToSquare } from "react-icons/fa6";
 
 const ProfileDetails = () => {
   const user = useSelector((state) => state.auth?.user);
   const { capitalize, setManageAccount } = useAppContext();
+  const [clickOnUpdateProfile, setClickOnUpdateProfile] = useState(false);
+  const [clickOnUpdateEmail, setClickOnUpdateEmail] = useState(false);
 
   return (
     <div className="flex flex-col overflow-hidden">
@@ -38,12 +43,18 @@ const ProfileDetails = () => {
             {capitalize(user.fullname?.lastname)}
           </h6>
         </span>
-        <span className="flex items-center gap-1.5 cursor-pointer shrink-0">
+        <span
+          className="flex items-center gap-1.5 cursor-pointer shrink-0"
+          onClick={() => setClickOnUpdateProfile(true)}
+        >
           <LuUserRoundPen className="text-lg text-gray-700/70 font-medium cursor-pointer" />
           <p className="max-lg:hidden font-medium text-xs text-gray-900/70 whitespace-nowrap">
             Update profile
           </p>
         </span>
+        {clickOnUpdateProfile && (
+          <UpdateProfileTab setClickOnUpdateProfile={setClickOnUpdateProfile} />
+        )}
 
         <span className="flex sm:hidden gap-3 items-center min-w-0 col-span-2">
           <img
@@ -76,7 +87,13 @@ const ProfileDetails = () => {
             addresses
           </button>
         </span>
-        <HiOutlineDotsHorizontal className="text-lg text-gray-700/70 font-medium cursor-pointer shrink-0" />
+        <FaPenToSquare
+          className="text-base text-gray-700/60 font-light cursor-pointer shrink-0"
+          onClick={() => setClickOnUpdateEmail(true)}
+        />
+        {clickOnUpdateEmail && (
+          <UpdateEmailTab setClickOnUpdateEmail={setClickOnUpdateEmail} />
+        )}
 
         <span className="flex sm:hidden flex-col gap-3 items-start col-span-2">
           <span className="flex gap-1 items-center min-w-0">

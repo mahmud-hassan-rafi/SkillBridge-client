@@ -151,26 +151,6 @@ const Navbar = () => {
         />
       )}
       {manageAccount && <ManageAccount />}
-      {/* mobile view */}
-      {/* <div className="md:hidden flex items-center gap-2 sm:gap-5 text-gray-500">
-        {auth?.isAuthenticated ? (
-          <div className="flex items-center text-xs xs:text-sm sm:text-base gap-2 sm:gap-3">
-            <img
-              src={auth?.user?.imageUrl}
-              alt=""
-              className="w-10 h-10 rounded-full ml-5 cursor-pointer shadow"
-              onClick={onClickHandler}
-              ref={profilePictureRef}
-            />
-          </div>
-        ) : (
-          <Link to={"/login"}>
-            <button>
-              <img src={assets.user_icon} alt="" />
-            </button>
-          </Link>
-        )}
-      </div> */}
     </div>
   );
 };

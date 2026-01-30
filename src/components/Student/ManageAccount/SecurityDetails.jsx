@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { BsFillLaptopFill } from "react-icons/bs";
-import { FaMobileScreen } from "react-icons/fa6";
 import { assets } from "@assets/assets";
 import { useAppContext } from "@context/AppContext";
+import UpdatePasswordTab from "./update/UpdatePasswordTab";
 
 const SecurityDetails = () => {
   const user = useSelector((state) => state.auth?.user);
   const { setManageAccount } = useAppContext();
+  const [clickOnUpdatePassword, setClickOnUpdatePassword] = useState(false);
 
   return (
     <div className="flex flex-col">
@@ -26,13 +27,21 @@ const SecurityDetails = () => {
       <div className="grid grid-cols-[35%_65%] gap-2 w-full p-5 items-center">
         <h4 className="text-sm font-medium">Password</h4>
         <span>
-          <button className=" text-sm font-medium cursor-pointer">
+          <button
+            className=" text-sm font-medium cursor-pointer"
+            onClick={() => setClickOnUpdatePassword(true)}
+          >
             Set password
           </button>
         </span>
       </div>
+      {clickOnUpdatePassword && (
+        <UpdatePasswordTab
+          setClickOnUpdatePassword={setClickOnUpdatePassword}
+        />
+      )}
 
-      {/* email addresses */}
+      {/* active devices */}
       <div className="grid grid-cols-[35%_65%] gap-2 w-full p-5 items-start">
         <h4 className="text-sm font-medium">Active Devices</h4>
         <div className="flex flex-col gap-1 items-start">
@@ -62,8 +71,6 @@ const SecurityDetails = () => {
           </button>
         </span>
       </div>
-
-      {/* mobile view ⬇ */}
     </div>
   );
 };
