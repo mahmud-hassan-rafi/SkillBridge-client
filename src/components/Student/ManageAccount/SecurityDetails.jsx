@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { BsFillLaptopFill } from "react-icons/bs";
 import { assets } from "@assets/assets";
 import { useAppContext } from "@context/AppContext";
 import UpdatePasswordTab from "./update/UpdatePasswordTab";
+import DeleteAccountTab from "./update/DeleteAccountTab";
 
 const SecurityDetails = () => {
-  const user = useSelector((state) => state.auth?.user);
   const { setManageAccount } = useAppContext();
   const [clickOnUpdatePassword, setClickOnUpdatePassword] = useState(false);
+  const [clickOnDeleteAccount, setClickOnDeleteAccount] = useState(false);
 
   return (
     <div className="flex flex-col">
@@ -66,11 +66,17 @@ const SecurityDetails = () => {
       <div className="grid grid-cols-[35%_65%] gap-2 w-full p-5 items-center">
         <h4 className="text-sm font-medium">Delete account</h4>
         <span>
-          <button className="text-sm font-medium cursor-pointer text-red-800/70">
+          <button
+            className="text-sm font-medium cursor-pointer text-red-800/70"
+            onClick={() => setClickOnDeleteAccount(true)}
+          >
             Delete account
           </button>
         </span>
       </div>
+      {clickOnDeleteAccount && (
+        <DeleteAccountTab setClickOnDeleteAccount={setClickOnDeleteAccount} />
+      )}
     </div>
   );
 };

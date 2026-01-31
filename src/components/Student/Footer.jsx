@@ -9,16 +9,16 @@ const Footer = () => {
           <img
             src={assets.logo_dark}
             alt="logo_dark"
-            className="w-23 h-8 object-cover object-center scale-110"
+            className="md:min-w-30 md:max-w-30 h-8 object-cover object-center scale-110"
           />
           <p className="mt-6 text-center md:text-left text-sm text-white/80">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text.
           </p>
         </div>
-        <div className="flex flex-col items-center md:items-start w-full ">
+        <div className="flex flex-col items-center md:items-start w-full">
           <h2 className="font-semibold text-white mb-5">Company</h2>
-          <ul className="flex md:flex-col w-full items-start justify-between text-sm text-white/80 md:space-y-2">
+          <ul className="flex md:flex-col w-full items-start justify-between text-sm text-white/80 md:space-y-2 md:w-23">
             <li>
               <a href="#">Home</a>
             </li>

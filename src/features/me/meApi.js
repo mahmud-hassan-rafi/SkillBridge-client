@@ -17,7 +17,26 @@ const meApiEndpoints = api.injectEndpoints({
         }
       },
     }),
+    updateProfile: builder.mutation({
+      query: (updates) => ({
+        url: "/me/profile",
+        method: "PATCH",
+        body: updates,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    deleteProfile: builder.mutation({
+      query: () => ({
+        url: "/me/profile",
+        method: "DELETE",
+      }),
+      invalidatesTags: ["userAuth"],
+    }),
   }),
 });
 
-export const { useEnrolledCoursesQuery } = meApiEndpoints;
+export const {
+  useEnrolledCoursesQuery,
+  useUpdateProfileMutation,
+  useDeleteProfileMutation,
+} = meApiEndpoints;

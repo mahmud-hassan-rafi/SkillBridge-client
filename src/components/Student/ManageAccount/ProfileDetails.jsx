@@ -30,7 +30,7 @@ const ProfileDetails = () => {
       </div>
 
       {/* profile */}
-      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[1fr_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
+      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[150px_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
         <h4 className="text-sm font-medium">Profile</h4>
         <span className="hidden sm:flex gap-3 items-center min-w-0">
           <img
@@ -70,7 +70,7 @@ const ProfileDetails = () => {
       </div>
 
       {/* email addresses */}
-      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[1fr_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
+      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[150px_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
         <h4 className="text-sm font-medium">Email addresses</h4>
         <span className="hidden sm:flex flex-col gap-3 items-start min-w-0">
           <span className="flex gap-1 items-center min-w-0">
@@ -113,7 +113,7 @@ const ProfileDetails = () => {
       </div>
 
       {/* connected accounts */}
-      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[1fr_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
+      <div className="grid grid-cols-[1fr_auto] max-sm:grid-rows-[30px_1fr] sm:grid-cols-[150px_1fr_auto] gap-2 w-full p-3 sm:p-5 items-center overflow-hidden">
         <h4 className="text-sm font-medium min-w-0">Connected accounts</h4>
         <span className="hidden sm:flex flex-col gap-3 items-start min-w-0">
           <button className="flex gap-1 items-center text-sm cursor-pointer px-3 py-2 border border-gray-300/70 rounded shrink-0">
