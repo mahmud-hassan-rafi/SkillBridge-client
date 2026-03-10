@@ -1,5 +1,5 @@
 import { assets } from "@assets/assets";
-import { useAppContext } from "@context/AppContext";
+import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
 import { Line } from "rc-progress";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,11 @@ const Navbar = () => {
   const {
     becomeInstructorOnboardingStep,
     becomeInstructorOnboardingStepPercentange,
-  } = useAppContext();
+  } = useInstructorOnBoardingContext();
+
+  if (window.location.pathname === "/become-instructor") {
+    return null;
+  }
 
   return (
     <div className="sticky top-0 h-20 z-100 shadow w-full bg-white overflow-hidden flex flex-col items-center">
@@ -30,7 +34,7 @@ const Navbar = () => {
           </p>
           <button
             className="p-2 hover:bg-black/10 text-purple-700 font-medium cursor-pointer"
-            onClick={() => navigate("/become-instructor")}
+            onClick={() => navigate("/")}
           >
             Exit
           </button>

@@ -7,7 +7,7 @@ const BecomeInstructorOnboardingLayout = () => {
   return (
     <div className="text-base min-h-screen bg-white ">
       <Navbar />
-      <div className="flex-1 overflow-y-auto">
+      <div className="px-4 sm:px-8 md:px-16 flex-1 overflow-y-auto">
         <Outlet />
       </div>
       <Footer />

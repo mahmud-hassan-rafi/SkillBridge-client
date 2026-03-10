@@ -1,4 +1,4 @@
-import { useAppContext } from "@context/AppContext";
+import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
 import React from "react";
 
 const Footer = () => {
@@ -6,7 +6,8 @@ const Footer = () => {
     handleClickOnboardingContinue,
     handleClickOnboardingPrevious,
     becomeInstructorOnboardingStep,
-  } = useAppContext();
+    loading,
+  } = useInstructorOnBoardingContext();
 
   return (
     <div className="sticky bottom-0 h-18 z-100 shadow-[0_-2px_10px_rgba(0,0,0,0.15)] w-full bg-white overflow-hidden flex items-center">
@@ -21,6 +22,7 @@ const Footer = () => {
         )}
         <button
           className={`text-white px-4 py-2 border bg-purple-700 rounded-md hover:bg-purple-800 cursor-pointer`}
+          disabled={loading || becomeInstructorOnboardingStep === 3}
           onClick={handleClickOnboardingContinue}
         >
           Continue
