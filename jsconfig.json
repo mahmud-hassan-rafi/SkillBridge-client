@@ -13,7 +13,8 @@
       "@stores/*": ["stores/*"],
       "@services/*": ["services/*"],
       "@utils/*": ["utils/*"],
-      "@features/*": ["features/*"]
+      "@features/*": ["features/*"],
+      "@routes/*": ["routes/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
