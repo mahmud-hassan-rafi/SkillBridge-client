@@ -51,8 +51,14 @@ import value_prop_get_rewarded from "./value-prop-get-rewarded.webp";
 import value_prop_inspire from "./value-prop-inspire.webp";
 import value_prop_teach from "./value-prop-teach.webp";
 import instructor_login_page_image from "./instructor_login_page_image.webp";
+import existing_audience_cover from "./existing-audience-cover.webp";
+import teaching_experience_cover from "./teaching-experience-cover.webp";
+import video_experience_cover from "./video-experience-cover.webp";
 
 export const assets = {
+  video_experience_cover,
+  teaching_experience_cover,
+  existing_audience_cover,
   value_prop_get_rewarded,
   value_prop_inspire,
   value_prop_teach,
