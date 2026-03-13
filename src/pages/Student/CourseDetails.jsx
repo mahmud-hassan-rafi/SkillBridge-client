@@ -1,27 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAppContext } from "@context/AppContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { assets } from "@assets/assets";
 import Footer from "@components/Student/Footer";
 
 import YouTube from "react-youtube";
 import CourseStructure from "@components/Student/CourseStructure";
+import CourseEnrollementCard from "@components/Student/courseDetails/CourseEnrollementCard";
 
 const CourseDetails = () => {
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
-  const navigate = useNavigate();
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setPlayerData] = useState(null);
   const scrollToDescription = useRef();
   const scrollToVideoRef = useRef();
-  const {
-    allCourses,
-    calculateAvarageRating,
-    currency,
-    calculateCourseDuration,
-    calculateNoOfLectures,
-  } = useAppContext();
+  const { allCourses, calculateAvarageRating } = useAppContext();
 
   useEffect(() => {
     (async function fetchCourseData() {
@@ -114,96 +108,11 @@ bg-linear-to-b from-cyan-100/70"
         </div>
 
         {/* right col */}
-        <div
-          className="max-w-106 z-10 shadow-[0_4px_15px_2px] shadow-[rgba(0,0,0,0.1)] rounded-t
-md:rounded-none overflow-hidden bg-white min-w-75 sm:min-w-105"
-        >
-          {playerData ? (
-            <YouTube
-              videoId={playerData?.videoId}
-              opts={{ playerVars: { autoplay: 1 } }}
-              iframeClassName="w-full aspect-video"
-            />
-          ) : (
-            <img
-              src={courseData?.courseThumbnail}
-              ref={scrollToVideoRef}
-              alt=""
-            />
-          )}
-          <div className="p-5">
-            <div className="flex items-center gap-2">
-              <img
-                src={assets.time_left_clock_icon}
-                alt="time_left_clock_icon"
-              />
-              <p className="font-medium">
-                <span className="text-red-500">5 days</span> left to the price!
-              </p>
-            </div>
-            <div className="flex gap-3 items-center pt-2">
-              <p className="md:text-4xl text-2xl to-gray-800 font-semibold">
-                {currency}
-                {(
-                  courseData?.coursePrice -
-                  (courseData?.discount * courseData?.coursePrice) / 100
-                ).toFixed(2)}
-              </p>
-              <p className="md:text-lg text-gray-500 line-through">
-                {currency}
-                {courseData?.coursePrice}
-              </p>
-              <p className="md:text-lg text-gray-500">
-                {courseData?.discount}% off!
-              </p>
-            </div>
-            {/* ratings */}
-            <div className="flex items-center text-sm md:text-default gap-4 pt-2 md:pt-4 text-gray-500">
-              <div className="flex items-center gap-1">
-                <img src={assets.star} alt="star" />
-                <p>({calculateAvarageRating(courseData)})</p>
-              </div>
-
-              <div className="h-4 w-px bg-gray-500/30"></div>
-              {/* total duration */}
-              <div className="flex items-center gap-1">
-                <img src={assets.time_clock_icon} alt="time_clock_icon" />
-                <p>{calculateCourseDuration(courseData)}</p>
-              </div>
-
-              <div className="h-4 w-px bg-gray-500/30"></div>
-              {/* total lessons */}
-              <div className="flex items-center gap-1">
-                <img src={assets.lesson_icon} alt="lesson_icon" />
-                <p>{calculateNoOfLectures(courseData)} lessons</p>
-              </div>
-            </div>
-            <button
-              className="md:mt-6 mt-4 w-full py-3 rounded bg-blue-600
-text-white font-medium"
-              onClick={() =>
-                isAlreadyEnrolled ? navigate("/player/" + courseData._id) : ""
-              }
-            >
-              {isAlreadyEnrolled ? "Already Enrolled" : "Enroll now"}
-            </button>
-            <div className="pt-6">
-              <p className="md:text-x1 text-lg font-medium text-gray-800">
-                What's in the course?{" "}
-              </p>
-              <ul
-                className="ml-4 pt-2 text-sm md:text-default list-disc
-            text-gray-500"
-              >
-                <li>Lifetime access with free updates.</li>
-                <li>Step-by-step, hands-dn project guidance.</li>
-                <li>Downloadable resources and source code.</li>
-                <li>Quizzes to test your knowledge.</li>
-                <li>Certificate of completion.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <CourseEnrollementCard
+          playerData={playerData}
+          courseData={courseData}
+          isAlreadyEnrolled={isAlreadyEnrolled}
+        />
       </div>
       <Footer />
     </>
