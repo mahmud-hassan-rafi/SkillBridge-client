@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { api } from "@services/api.js";
 import authReducer from "@features/auth/authSlice.js";
 import meReducer from "@features/me/meSlice.js";
+import paymentReducer from "@features/payment/paymentSlice";
 
 export const store = configureStore({
   name: "SkillBridgeStore",
   reducer: {
     auth: authReducer,
     me: meReducer,
+    payment: paymentReducer,
     [api.reducerPath]: api.reducer,
   },
 
