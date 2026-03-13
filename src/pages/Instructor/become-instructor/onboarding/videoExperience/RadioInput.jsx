@@ -1,3 +1,4 @@
+import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
 import React, { useState } from "react";
 
 const radioOptions = [
@@ -21,6 +22,7 @@ const radioOptions = [
 
 const RadioInput = () => {
   const [videoExperience, setVideoExperience] = useState("");
+  const { setIsOnBoardingSelected } = useInstructorOnBoardingContext();
   console.log(videoExperience);
 
   return (
@@ -35,7 +37,10 @@ const RadioInput = () => {
             name="teaching-experience"
             value={option.value}
             className="hidden peer "
-            onChange={(event) => setVideoExperience(event.target.value)}
+            onChange={(event) => {
+              setIsOnBoardingSelected(event.target.checked);
+              setVideoExperience(event.target.value);
+            }}
           />
 
           <div className="w-3.5 h-3.5 p-0.5 rounded-full border-2 border-white outline outline-gray-600 peer-checked:bg-purple-600 transition-all"></div>

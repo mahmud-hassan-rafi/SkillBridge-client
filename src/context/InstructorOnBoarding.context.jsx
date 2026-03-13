@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { useUpdateProfileMutation } from "@features/me/meApi";
+import { createContext, useContext, useState, useEffect } from "react";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -13,6 +14,9 @@ const onboardingRoutes = [
 export const InstructorOnBoardingContextProvider = ({ children }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isOnBoardingSelected, setIsOnBoardingSelected] = useState(false);
+  const [userRole] = useUpdateProfileMutation();
+
   const [becomeInstructorOnboardingStep, setBecomeInstructorOnboardingStep] =
     useState(1);
   const [
@@ -22,7 +26,7 @@ export const InstructorOnBoardingContextProvider = ({ children }) => {
 
   // keep percentage in sync whenever the step changes
   const totalSteps = onboardingRoutes.length;
-  React.useEffect(() => {
+  useEffect(() => {
     setBecomeInstructorOnboardingStepPercentange(
       Math.ceil((becomeInstructorOnboardingStep / totalSteps) * 100),
     );
@@ -30,7 +34,7 @@ export const InstructorOnBoardingContextProvider = ({ children }) => {
 
   // keep step in sync with the current URL in case the user lands directly on a route
   const location = useLocation();
-  React.useEffect(() => {
+  useEffect(() => {
     // normalize the pathname so we match even if there's a trailing slash
     const idx = onboardingRoutes.findIndex((r) =>
       location.pathname.startsWith(r),
@@ -42,13 +46,19 @@ export const InstructorOnBoardingContextProvider = ({ children }) => {
 
   // onboarding continue button
   const handleClickOnboardingContinue = () => {
-    if (loading || becomeInstructorOnboardingStep === totalSteps) return; // prevent double clicks or moving past last step
+    if (loading) return; // prevent double clicks or moving past last step
     setLoading(true);
+    if (becomeInstructorOnboardingStep === totalSteps) {
+      navigate("/instructor/dashboard");
+      userRole({ role: "instructor" });
+      setLoading(false);
+      return;
+    }
 
     const nextStep = becomeInstructorOnboardingStep + 1;
     setBecomeInstructorOnboardingStep(nextStep);
     navigate(onboardingRoutes[nextStep - 1]);
-
+    setIsOnBoardingSelected(false); // reset selection for the next step
     setLoading(false);
   };
 
@@ -60,7 +70,7 @@ export const InstructorOnBoardingContextProvider = ({ children }) => {
     const prevStep = becomeInstructorOnboardingStep - 1;
     setBecomeInstructorOnboardingStep(prevStep);
     navigate(onboardingRoutes[prevStep - 1]);
-
+    setIsOnBoardingSelected(false);
     setLoading(false);
   };
 
@@ -71,6 +81,8 @@ export const InstructorOnBoardingContextProvider = ({ children }) => {
     becomeInstructorOnboardingStepPercentange,
     loading,
     setLoading,
+    isOnBoardingSelected,
+    setIsOnBoardingSelected,
   };
 
   return (

@@ -7,6 +7,7 @@ const Footer = () => {
     handleClickOnboardingPrevious,
     becomeInstructorOnboardingStep,
     loading,
+    isOnBoardingSelected,
   } = useInstructorOnBoardingContext();
 
   return (
@@ -21,11 +22,13 @@ const Footer = () => {
           </button>
         )}
         <button
-          className={`text-white px-4 py-2 border bg-purple-700 rounded-md hover:bg-purple-800 cursor-pointer`}
-          disabled={loading || becomeInstructorOnboardingStep === 3}
+          className={`text-white px-4 py-2 border bg-purple-700 rounded-md hover:bg-purple-800 cursor-pointer disabled:bg-gray-400 disabled:border-gray-400 disabled:cursor-not-allowed`}
+          disabled={!isOnBoardingSelected}
           onClick={handleClickOnboardingContinue}
         >
-          Continue
+          {loading || becomeInstructorOnboardingStep === 3
+            ? "Complete"
+            : "Continue"}
         </button>
       </div>
     </div>

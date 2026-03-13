@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
 import React, { useState } from "react";
 
 const radioOptions = [
@@ -21,7 +23,7 @@ const radioOptions = [
 
 const RadioInput = () => {
   const [teachingExperience, setTeachingExperience] = useState("");
-  console.log(teachingExperience);
+  const { setIsOnBoardingSelected } = useInstructorOnBoardingContext();
 
   return (
     <div className="flex flex-col gap-3 w-full sm:w-[75%] md:w-1/3 min-w-75 ">
@@ -35,7 +37,10 @@ const RadioInput = () => {
             name="teaching-experience"
             value={option.value}
             className="hidden peer "
-            onChange={(event) => setTeachingExperience(event.target.value)}
+            onChange={(event) => {
+              setIsOnBoardingSelected(event.target.checked);
+              setTeachingExperience(event.target.value);
+            }}
           />
 
           <div className="w-3.5 h-3.5 p-0.5 rounded-full border-2 border-white outline outline-gray-600 peer-checked:bg-purple-600 transition-all"></div>
