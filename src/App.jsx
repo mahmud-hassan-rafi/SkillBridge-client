@@ -7,12 +7,14 @@ import "quill/dist/quill.snow.css";
 import AppRoutes from "@routes/AppRoutes";
 
 const App = () => {
-  const { isLoading } = useLoadUserQuery();
+  const { isLoading, isFetching } = useLoadUserQuery();
+  const loading = isLoading || isFetching;
 
-  return !isLoading ? (
+  return !loading ? (
     <>
       <ScrollToTop />
-      <AppRoutes isLoading={isLoading} />
+      {/* pass the combined loading flag down so RootRedirect can also guard */}
+      <AppRoutes isLoading={loading} />
     </>
   ) : (
     <Loading />

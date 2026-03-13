@@ -24,6 +24,8 @@ import VideoExperienceOnboarding from "@pages/Instructor/become-instructor/onboa
 import ExistingAudienceOnboarding from "@pages/Instructor/become-instructor/onboarding/ExistingAudienceOnboarding";
 import { InstructorOnBoardingContextProvider } from "@context/InstructorOnBoarding.context";
 import Loading from "@components/common/Loading";
+import CourseCheckout from "@pages/Student/CourseCheckout";
+import PaymentSuccess from "@pages/Student/PaymentSuccess";
 
 const AppRoutes = ({ isLoading }) => {
   return (
@@ -36,6 +38,18 @@ const AppRoutes = ({ isLoading }) => {
         <Route path="/course-list" element={<CoursesList />} />
         <Route path="/course-list/:input" element={<CoursesList />} />
         <Route path="/course/:id" element={<CourseDetails />} />
+        <Route
+          path="/course/enroll/:id"
+          element={
+            <PrivateRoutes allowRoles={"student"} route={"/login"}>
+              <CourseCheckout />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/course/enroll/payment-success"
+          element={<PaymentSuccess />}
+        />
         <Route
           path="/my-enrollments"
           element={

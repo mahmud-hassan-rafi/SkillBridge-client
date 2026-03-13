@@ -7,14 +7,15 @@ const RootRedirect = ({ isLoading }) => {
   const user = useSelector((state) => state?.auth?.user);
 
   useEffect(() => {
+    // don't redirect while the current user fetch is in progress
     if (isLoading) return;
-    if (
-      !user ||
-      (user?.enrolledCourses.length === 0 && user?.role === "student")
-    ) {
+
+    // if we have a real user object, send them to the correct landing page
+    if (user) {
+      navigate(user.role === "student" ? "/home" : "/instructor/dashboard");
+    } else {
+      // no user means guest, go to student home by default
       navigate("/home");
-    } else if (user?.role === "instructor") {
-      navigate("/instructor/dashboard");
     }
   }, [navigate, user, isLoading]);
 
