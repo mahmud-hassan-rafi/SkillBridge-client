@@ -1,5 +1,5 @@
 import { assets } from "@assets/assets";
-import React from "react";
+import React, { useCallback } from "react";
 import uniqId from "uniqid";
 
 const AddLecturePopUp = ({
@@ -8,19 +8,22 @@ const AddLecturePopUp = ({
   showPopup,
   setShowPopup,
 }) => {
-  const handleLectureDetailsOnChange = (e) =>
-    setCourseData((prev) => {
-      const { name, value } = e.target;
-      return {
-        ...prev,
-        lectureDetails: {
-          ...prev.lectureDetails,
-          [name]: value,
-        },
-      };
-    });
+  const handleLectureDetailsOnChange = useCallback(
+    (e) =>
+      setCourseData((prev) => {
+        const { name, value } = e.target;
+        return {
+          ...prev,
+          lectureDetails: {
+            ...prev.lectureDetails,
+            [name]: value,
+          },
+        };
+      }),
+    [setCourseData],
+  );
 
-  const addLecture = () => {
+  const addLecture = useCallback(() => {
     setCourseData((prev) => ({
       ...prev,
       chapters: prev.chapters.map((chapter) =>
@@ -53,7 +56,7 @@ const AddLecturePopUp = ({
         isPreviewFree: false,
       },
     }));
-  };
+  }, [setCourseData, setShowPopup]);
 
   return (
     showPopup && (
@@ -132,6 +135,7 @@ py-2 rounded"
           <img
             src={assets?.cross_icon}
             alt="cross icon"
+            loading="lazy"
             onClick={() => {
               setShowPopup(false);
               setCourseData((prev) => ({
