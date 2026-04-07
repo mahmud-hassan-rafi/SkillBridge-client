@@ -1,10 +1,10 @@
+import React from "react";
 import CallToActions from "@components/Student/CallToActions";
 import Companies from "@components/Student/Companies";
 import CoursesSection from "@components/Student/CoursesSection";
 import Footer from "@components/Student/Footer";
 import Hero from "@components/Student/Hero";
 import TestimonialSection from "@components/Student/TestimonialsSection";
-import React from "react";
 
 const Home = () => {
   return (
