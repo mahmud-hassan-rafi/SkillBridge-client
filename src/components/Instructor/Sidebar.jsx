@@ -40,7 +40,7 @@ const Sidebar = () => {
             }`
           }
         >
-          <img src={item.icon} alt="" className="w-6 h-6" />
+          <img loading="lazy" src={item.icon} alt="" className="w-6 h-6" />
           <p className="md:block hidden text-center">{item.name}</p>
         </NavLink>
       ))}

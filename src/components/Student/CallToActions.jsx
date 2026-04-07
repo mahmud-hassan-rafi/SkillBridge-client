@@ -17,7 +17,12 @@ const CallToActions = () => {
         </button>
         <button className="flex gap-2 items-center text-sm sm:text-base">
           Learn more{" "}
-          <img className="mt-1" src={assets.arrow_icon} alt="arrow_icon" />
+          <img
+            loading="lazy"
+            className="mt-1"
+            src={assets.arrow_icon}
+            alt="arrow_icon"
+          />
         </button>
       </div>
     </div>

@@ -7,6 +7,7 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between py-4 px-2 sm:px-4 md:px-8 lg:px-24 border-b border">
       <img
+        loading="lazy"
         src={assets.logo}
         alt=""
         className="cursor-pointer w-28 h-10 object-center object-cover lg:w-32"
@@ -14,7 +15,12 @@ const Navbar = () => {
       />
       <div className="flex gap-4 items-center">
         <p>Hi! Developer</p>
-        <img src={assets.profile_img} className="profile_image" alt="" />
+        <img
+          loading="lazy"
+          src={assets.profile_img}
+          className="profile_image"
+          alt=""
+        />
       </div>
     </div>
   );
