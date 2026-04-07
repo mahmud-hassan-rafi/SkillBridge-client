@@ -18,6 +18,7 @@ const TestimonialSection = () => {
           >
             <div className="flex items-center gap-4 px-5 py-4 bg-gray-500/10">
               <img
+                loading="lazy"
                 className="size-12 rounded-full"
                 src={testimonial.image}
                 alt={testimonial.name}
@@ -34,6 +35,7 @@ const TestimonialSection = () => {
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, idx) => (
                   <img
+                    loading="lazy"
                     className=" h-5"
                     key={idx}
                     src={

@@ -32,7 +32,7 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
         {/* profile */}
         <div className="flex items-center gap-4 border-b border-b-gray-200/70 p-3  w-full transition-colors">
           <span className="flex w-[15%] items-center justify-center">
-            <img
+            <img loading="lazy"
               src={user?.imageUrl}
               alt=""
               className="profile_image rounded-full"
