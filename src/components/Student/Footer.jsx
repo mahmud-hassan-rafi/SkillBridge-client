@@ -7,6 +7,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row items-start px-8 md:px-0 justify-center gap-10 md:gap-32 py-10 border-b border-white/10">
         <div className="flex flex-col md:items-start items-center w-full">
           <img
+            loading="lazy"
             src={assets.logo_dark}
             alt="logo_dark"
             className="md:min-w-30 md:max-w-30 h-8 object-cover object-center scale-110"
