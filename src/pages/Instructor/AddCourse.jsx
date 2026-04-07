@@ -53,7 +53,7 @@ const AddCourse = () => {
       }
     } else if (action === "remove") {
       const filteredList = courseData?.chapters?.filter(
-        (chapter) => chapter?.chapterId !== chapterId
+        (chapter) => chapter?.chapterId !== chapterId,
       );
       setCourseData((prev) => {
         return { ...prev, chapters: filteredList };
@@ -66,7 +66,7 @@ const AddCourse = () => {
             ...prev.chapters.map((chapter) =>
               chapter.chapterId === chapterId
                 ? { ...chapter, collapsed: !chapter.collapsed }
-                : chapter
+                : chapter,
             ),
           ],
         };
@@ -157,6 +157,7 @@ py-2 px-3 rounded border border-gray-500"
             <p>Course Thumbnail</p>
             <label htmlFor="thumbnailImage" className="flex items-center gap-3">
               <img
+                loading="lazy"
                 src={assets.file_upload_icon}
                 alt=""
                 className="p-3 bg-blue-500
@@ -177,6 +178,7 @@ py-2 px-3 rounded border border-gray-500"
               />
               {courseData?.image && (
                 <img
+                  loading="lazy"
                   className="max-h-18"
                   src={URL.createObjectURL(courseData?.image)}
                   alt=""
@@ -213,6 +215,7 @@ py-2 px-3 rounded border border-gray-500"
                 {/* added chapter */}
                 <div className="flex items-center">
                   <img
+                    loading="lazy"
                     // toggle icon
                     src={assets.dropdown_icon}
                     width={14}
@@ -230,6 +233,7 @@ py-2 px-3 rounded border border-gray-500"
                   ({chapter?.chapterContent?.length} Lectures)
                 </span>
                 <img
+                  loading="lazy"
                   src={assets.cross_icon}
                   alt="cross icon"
                   className="cursor-pointer ml-auto"
@@ -256,6 +260,7 @@ py-2 px-3 rounded border border-gray-500"
                         - {lecture.isPreviewFree ? "Free Preview" : "Paid"}
                       </span>
                       <img
+                        loading="lazy"
                         src={assets.cross_icon}
                         alt="cross icon"
                         className="cursor-pointer ml-auto"
