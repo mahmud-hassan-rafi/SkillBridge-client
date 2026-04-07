@@ -1,12 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { useAppContext } from "@context/AppContext";
 import { useParams } from "react-router-dom";
 import { assets } from "@assets/assets";
 import Footer from "@components/Student/Footer";
 
-import YouTube from "react-youtube";
-import CourseStructure from "@components/Student/CourseStructure";
-import CourseEnrollementCard from "@components/Student/courseDetails/CourseEnrollementCard";
+const CourseStructure = lazy(
+  () => import("@components/Student/CourseStructure"),
+);
+import CourseEnrollmentCardSkeleton from "@skeleton/course/CourseEnrollmentCardSkeleton";
+import CourseStructureSkeleton from "@skeleton/course/CourseStructureSkeleton";
+const CourseEnrollementCard = lazy(
+  () =>
+    import("@components/Student/courseDetails/courseEnrollmentCard/CourseEnrollementCard"),
+);
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -84,12 +90,14 @@ bg-linear-to-b from-cyan-100/70"
             <span className="text-blue-600 underline">Mahmud Hassan</span>
           </p>
           {/* course structure components*/}
-          <CourseStructure
-            setPlayerData={setPlayerData}
-            courseData={courseData}
-            buyedCourse={isAlreadyEnrolled}
-            scrollToVideoRef={scrollToVideoRef}
-          />
+          <Suspense fallback={<CourseStructureSkeleton />}>
+            <CourseStructure
+              setPlayerData={setPlayerData}
+              courseData={courseData}
+              isBuyedCourse={isAlreadyEnrolled}
+              scrollToVideoRef={scrollToVideoRef}
+            />
+          </Suspense>
           {/* description section */}
           <div className="py-8 md:py-20 text-sm md:text-base">
             <h3
@@ -108,15 +116,17 @@ bg-linear-to-b from-cyan-100/70"
         </div>
 
         {/* right col */}
-        <CourseEnrollementCard
-          playerData={playerData}
-          courseData={courseData}
-          isAlreadyEnrolled={isAlreadyEnrolled}
-        />
+        <Suspense fallback={<CourseEnrollmentCardSkeleton />}>
+          <CourseEnrollementCard
+            playerData={playerData}
+            courseData={courseData}
+            isAlreadyEnrolled={isAlreadyEnrolled}
+          />
+        </Suspense>
       </div>
       <Footer />
     </>
   );
 };
 
-export default React.memo(CourseDetails);
+export default CourseDetails;
