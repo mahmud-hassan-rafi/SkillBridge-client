@@ -4,7 +4,7 @@ import Searchbar from "./Searchbar";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col items-center justify-center w-full pt-20 md:pt-36 px-7 md:px-0 space-y-7 text-center bg-linear-to-b from-cyan-100/70">
+    <section className="flex flex-col items-center justify-center w-full pt-20 md:pt-36 px-7 md:px-0 space-y-7 text-center bg-linear-to-b from-cyan-100/70">
       <h1
         className="text-home-heading-small
   leading-home-heading-small
@@ -14,6 +14,7 @@ const Hero = () => {
         Empower your future with the courses designed to{" "}
         <span className="text-blue-600">fit your choice.</span>
         <img
+          loading="lazy"
           src={assets.sketch}
           alt="sketch"
           className="md:block hidden absolute -bottom-7 right-0"
@@ -30,7 +31,7 @@ const Hero = () => {
         goals.
       </p>
       <Searchbar />
-    </div>
+    </section>
   );
 };
 
