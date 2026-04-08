@@ -1,3 +1,4 @@
+import Loading from "@components/common/Loading";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +20,7 @@ const RootRedirect = ({ isLoading }) => {
     }
   }, [navigate, user, isLoading]);
 
-  return <div>redirecting...</div>;
+  return <Loading label="Redirecting..." />;
 };
 
 export default RootRedirect;

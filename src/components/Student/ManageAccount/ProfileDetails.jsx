@@ -22,6 +22,7 @@ const ProfileDetails = () => {
       <div className="flex px-3 sm:px-5 w-full justify-between items-center">
         <h2 className=" text-lg font-semibold">Profile details</h2>
         <img
+          loading="lazy"
           src={assets.cross_icon}
           alt=""
           className="size-3 cursor-pointer mr-1"
@@ -34,6 +35,7 @@ const ProfileDetails = () => {
         <h4 className="text-sm font-medium">Profile</h4>
         <span className="hidden sm:flex gap-3 items-center min-w-0">
           <img
+            loading="lazy"
             src={user?.imageUrl}
             alt=""
             className="profile_image rounded-full shrink-0"
@@ -58,6 +60,7 @@ const ProfileDetails = () => {
 
         <span className="flex sm:hidden gap-3 items-center min-w-0 col-span-2">
           <img
+            loading="lazy"
             src={user?.imageUrl}
             alt=""
             className="size-10 rounded-full shrink-0"

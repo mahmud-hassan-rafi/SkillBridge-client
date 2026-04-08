@@ -16,6 +16,7 @@ const Searchbar = ({ data, isClickOnClose, setIsClickOnClose }) => {
       onSubmit={onSearchHandler}
     >
       <img
+        loading="lazy"
         src={assets.search_icon}
         alt="search_icon"
         className="md:w-auto w-10 px-3"

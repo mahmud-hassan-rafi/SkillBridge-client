@@ -89,6 +89,7 @@ const Navbar = () => {
         />
       )}
       <img
+        loading="lazy"
         src={assets.logo}
         alt="Logo"
         className="w-28 h-10 object-center object-cover lg:w-32 cursor-pointer"
@@ -122,6 +123,7 @@ const Navbar = () => {
               | <Link to="/my-enrollments">My Enrollments</Link>
             </div>
             <img
+              loading="lazy"
               src={auth?.user?.imageUrl}
               alt=""
               className="w-10 h-10 rounded-full ml-5 cursor-pointer shadow"
@@ -138,7 +140,7 @@ const Navbar = () => {
               Create Account
             </Link>
             <Link to={"/login"} className="md:hidden">
-              <img src={assets.user_icon} alt="" />
+              <img loading="lazy" src={assets.user_icon} alt="" />
             </Link>
           </>
         )}

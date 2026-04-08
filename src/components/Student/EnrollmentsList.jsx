@@ -28,7 +28,7 @@ const EnrollmentsList = ({ enrolledCourses }) => {
       Math.floor(
         (progressArray[idx]?.lectureCompleted /
           progressArray[idx]?.totalLectures) *
-          100
+          100,
       ) || 0
     );
   };
@@ -48,6 +48,7 @@ const EnrollmentsList = ({ enrolledCourses }) => {
           <tr key={idx} className="border-b border-gray-500/20">
             <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 ">
               <img
+                loading="lazy"
                 src={course?.courseThumbnail}
                 alt=""
                 className="w-14 sm:w-24 md:w-28"

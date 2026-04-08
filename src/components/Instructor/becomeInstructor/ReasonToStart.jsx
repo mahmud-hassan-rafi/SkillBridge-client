@@ -32,6 +32,7 @@ const ReasonToStart = () => {
             className="lg:w-1/4 md:w-[30%] flex items-center flex-col gap-1 "
           >
             <img
+              loading="lazy"
               src={content.image}
               alt={content.title}
               className="size-[clamp(100px,10vw+1rem,120px)]"

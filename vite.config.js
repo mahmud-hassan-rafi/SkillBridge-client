@@ -17,6 +17,7 @@ export default defineConfig({
       "@features": "/src/features",
       "@services": "/src/services",
       "@routes": "/src/routes",
+      "@skeleton": "/src/skeleton",
     },
   },
 });

@@ -1,9 +1,20 @@
 import React from "react";
 
-const Loading = () => {
+const Loading = ({
+  size = "w-6 h-6",
+  color = "border-gray-300",
+  label = "Loading...",
+}) => {
   return (
-    <div className="flex justify-center items-center min-h-[88vh]">
-      <div className="w-14 aspect-square border-4  border-gray-300 border-t-4 border-t-blue-600 rounded-full animate-spin"></div>
+    <div
+      className="flex items-center justify-center gap-2 w-full h-[90vh]"
+      role="status"
+      aria-label={label}
+    >
+      <div
+        className={`animate-spin rounded-full border-2 border-t-blue-500 ${size} ${color}`}
+      ></div>
+      {label && <span className="text-sm text-gray-600">{label}</span>}
     </div>
   );
 };

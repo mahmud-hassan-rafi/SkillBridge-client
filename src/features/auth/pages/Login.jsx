@@ -1,16 +1,26 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "@assets/assets";
 import { useLoginMutation } from "@features/auth/authApi";
 import { errorNotify } from "@utils/toast-notify/toastify";
 import Loading from "@components/common/Loading";
+import { useSelector } from "react-redux";
 
 const Login = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const from = location.state?.from?.pathname;
+      navigate(from || "/", { replace: true });
+    }
+  }, [isAuthenticated, location.state?.from?.pathname, navigate]);
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -21,7 +31,6 @@ const Login = () => {
       await login({ ...userData, role: "student" }).unwrap(); // unwrap()
 
       setUserData({ email: "", password: "" });
-      navigate("/");
     } catch (err) {
       errorNotify(err?.data?.message || err?.message || err);
       navigate(err?.data?.navigate);

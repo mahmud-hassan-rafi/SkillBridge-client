@@ -20,7 +20,7 @@ const PaymentSuccess = () => {
   // waiting 3 seconds before navigate
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/my-enrollments");
+      navigate("/my-enrollments", { replace: true });
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -30,7 +30,7 @@ const PaymentSuccess = () => {
     <div className="w-full min-h-[87vh] flex flex-col justify-center items-center gap-2">
       <FaCircleCheck size={40} className="text-green-600" />
       <p className="text-3xl font-bold text-gray-800/90">Payment Successful</p>
-      <p className="text-xl">
+      <p className="text-sm md:text-xl">
         <span className="text-red-500">Redirecting</span> to My Enrollments Page
         in<span className="text-red-500 font-semibold"> {count} seconds</span>
       </p>
