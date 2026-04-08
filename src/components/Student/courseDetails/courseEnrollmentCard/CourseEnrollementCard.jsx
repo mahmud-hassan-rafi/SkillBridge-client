@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import YouTube from "react-youtube";
 import Ratings from "./Ratings";
 import Price from "./Price";
-import CourseDescription from "./courseDescription";
+import CourseDescription from "./CourseDescription";
 import OfferTimeLeft from "./OfferTimeLeft";
 
 const CourseEnrollementCard = (
