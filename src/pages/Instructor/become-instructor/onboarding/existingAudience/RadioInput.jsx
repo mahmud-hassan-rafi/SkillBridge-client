@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
+import { useInstructorOnBoardingContext } from "@hooks/ContextHook";
 import React, { useState } from "react";
 
 const radioOptions = [

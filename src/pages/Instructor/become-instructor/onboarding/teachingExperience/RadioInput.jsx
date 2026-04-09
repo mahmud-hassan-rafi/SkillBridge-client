@@ -1,4 +1,4 @@
-import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
+import { useInstructorOnBoardingContext } from "@hooks/ContextHook";
 import React, { useState } from "react";
 
 const radioOptions = [
@@ -23,8 +23,6 @@ const radioOptions = [
 const RadioInput = () => {
   const [teachingExperience, setTeachingExperience] = useState("");
   const { setIsOnBoardingSelected } = useInstructorOnBoardingContext();
-
-  console.log(teachingExperience);
 
   return (
     <div className="flex flex-col gap-3 w-full sm:w-[75%] md:w-1/3 min-w-75 ">
