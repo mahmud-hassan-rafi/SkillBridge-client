@@ -1,4 +1,4 @@
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React, { useCallback, useState } from "react";
 import { assets } from "@assets/assets";
 import Lecture from "./courseDetails/courseStructure/Lecture";

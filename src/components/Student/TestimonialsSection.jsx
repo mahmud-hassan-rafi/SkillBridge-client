@@ -10,7 +10,7 @@ const TestimonialSection = () => {
         success, and how our <br /> platform has a difference in their
         lives{" "}
       </p>
-      <div className="grid grid-cols-auto gap-8 mt-14">
+      <div className="grid grid-cols-auto gap-4 min-[800px]:gap-8 mt-14">
         {dummyTestimonial?.map((testimonial, idx) => (
           <div
             key={idx}

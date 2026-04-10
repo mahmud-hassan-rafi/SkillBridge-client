@@ -25,7 +25,7 @@ const GlobalImpact = () => {
   ];
 
   return (
-    <div className="flex md:justify-between justify-center lg:p-16 md:p-12 p-6 px-0 flex-wrap gap-3 sm:gap-5  md:gap-10 bg-[#5022c3] text-white">
+    <div className="w-full flex md:justify-between justify-center lg:p-16 md:p-12 p-6 px-0 flex-wrap gap-3 sm:gap-5  md:gap-10 bg-[#5022c3] text-white">
       {repeatedContent.map((content, idx) => (
         <span key={idx} className="p-4">
           <h1 className="text-4xl md:text-5xl font-semibold text-center">

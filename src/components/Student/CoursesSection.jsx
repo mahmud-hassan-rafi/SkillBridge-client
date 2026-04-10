@@ -1,4 +1,4 @@
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React from "react";
 import { Link } from "react-router-dom";
 import CourseCard from "./CourseCard";
