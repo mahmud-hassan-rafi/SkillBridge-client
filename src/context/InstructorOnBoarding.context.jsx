@@ -1,9 +1,8 @@
 import { useUpdateProfileMutation } from "@features/me/meApi";
-import { createContext, useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-const InstructorOnBoardingContext = createContext();
+import { InstructorOnBoardingContext } from "./Context";
 
 const onboardingRoutes = [
   "/become-instructor/onboarding/teaching-experience",
@@ -91,7 +90,3 @@ export const InstructorOnBoardingContextProvider = ({ children }) => {
     </InstructorOnBoardingContext.Provider>
   );
 };
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useInstructorOnBoardingContext = () =>
-  useContext(InstructorOnBoardingContext);
