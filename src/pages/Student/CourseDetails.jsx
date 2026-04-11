@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import { useParams } from "react-router-dom";
 import { assets } from "@assets/assets";
 import Footer from "@components/Student/Footer";
@@ -121,6 +121,7 @@ bg-linear-to-b from-cyan-100/70"
             playerData={playerData}
             courseData={courseData}
             isAlreadyEnrolled={isAlreadyEnrolled}
+            ref={scrollToVideoRef}
           />
         </Suspense>
       </div>

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import ManageAccount from "./ManageAccount/ManageAccount";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import { CgMenuRightAlt } from "react-icons/cg";
 import SidebarOnMobileView from "./home/SidebarOnMobileView";
 
@@ -75,11 +75,12 @@ const Navbar = () => {
       }`}
     >
       {auth?.isAuthenticated && (
-        <CgMenuRightAlt
-          className="md:hidden size-5 cursor-pointer"
-          onClick={handleClickOnMenubar}
-          ref={menubarRef}
-        />
+        <div ref={menubarRef}>
+          <CgMenuRightAlt
+            className="md:hidden size-5 cursor-pointer"
+            onClick={handleClickOnMenubar}
+          />
+        </div>
       )}
       {clickOnMenubar && (
         <SidebarOnMobileView
