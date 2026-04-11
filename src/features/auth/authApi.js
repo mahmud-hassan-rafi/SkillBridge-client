@@ -10,7 +10,14 @@ export const authApiEndpoints = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["User"],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(api.util.invalidateTags(["User"]));
+        } catch {
+          //
+        }
+      },
     }),
 
     login: builder.mutation({
@@ -19,7 +26,15 @@ export const authApiEndpoints = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["User"],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          // Only invalidate on success
+          dispatch(api.util.invalidateTags(["User"]));
+        } catch {
+          // Don't invalidate on error
+        }
+      },
     }),
 
     loadUser: builder.query({

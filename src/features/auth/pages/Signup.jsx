@@ -7,8 +7,7 @@ import { assets } from "@assets/assets";
 
 const Signup = () => {
   const state = useSelector((state) => state.auth);
-  // eslint-disable-next-line no-unused-vars
-  const [registerStudent, response] = useRegisterMutation();
+  const [registerStudent, { isLoading }] = useRegisterMutation();
 
   const navigate = useNavigate();
 
@@ -56,7 +55,6 @@ const Signup = () => {
       });
       navigate("/");
     } catch (error) {
-      navigate(error?.data?.navigate);
       if (error?.data?.errors) {
         error?.data?.errors.map((err) => {
           errorNotify(err?.msg);
@@ -223,7 +221,7 @@ const Signup = () => {
               </label>
             </div>
             <button className="bg-black text-[18px] text-white p-2.5 font-semibold rounded">
-              Create Student Account
+              {isLoading ? "Creating..." : "Create Student Account"}
             </button>
           </form>
           <span className="flex justify-center gap-x-2 flex-wrap font-semibold mt-2">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "@assets/assets";
 import { useLoginMutation } from "@features/auth/authApi";
@@ -24,20 +24,20 @@ const Login = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const handleOnSubmit = async (event) => {
-    event.preventDefault();
+  const handleOnSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      try {
+        await login({ ...userData, role: "student" }).unwrap(); // unwrap()
+        setUserData({ email: "", password: "" });
+      } catch (err) {
+        errorNotify(err?.data?.message || err?.message || err);
+      }
+    },
+    [setUserData, userData, login],
+  );
 
-    try {
-      await login({ ...userData, role: "student" }).unwrap(); // unwrap()
-
-      setUserData({ email: "", password: "" });
-    } catch (err) {
-      errorNotify(err?.data?.message || err?.message || err);
-      navigate(err?.data?.navigate);
-    }
-  };
-
-  return !isLoading ? (
+  return (
     <div className=" w-full h-[88vh] flex flex-col md:flex-row justify-between items-center bg-white md:px-8 xl:px-32">
       <img
         src={assets.login_theme_img}
@@ -85,7 +85,7 @@ const Login = () => {
               className="text-base rounded p-3 bg-[#eeeeee] placeholder:text-base outline-blue-100 mb-6"
             />
             <button className="bg-black text-[18px] text-white p-2.5 font-semibold rounded">
-              Login
+              {isLoading ? "Checking..." : "Login"}
             </button>
           </form>
           <span className="flex justify-center gap-x-2 font-semibold mt-2">
@@ -105,8 +105,6 @@ const Login = () => {
         </div> */}
       </div>
     </div>
-  ) : (
-    <Loading />
   );
 };
 
