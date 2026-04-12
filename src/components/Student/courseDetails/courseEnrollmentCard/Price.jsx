@@ -1,4 +1,4 @@
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React from "react";
 
 const Price = ({ courseData }) => {

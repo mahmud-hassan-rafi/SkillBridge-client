@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsFillLaptopFill } from "react-icons/bs";
 import { assets } from "@assets/assets";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import UpdatePasswordTab from "./update/UpdatePasswordTab";
 import DeleteAccountTab from "./update/DeleteAccountTab";
 
