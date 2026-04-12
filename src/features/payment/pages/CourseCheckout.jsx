@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Loading from "@components/common/Loading";
 import CheckoutForm from "@features/payment/components/checkoutForm/CheckoutForm";
 import CourseCard from "../components/courseCard/CourseCard";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import { useParams } from "react-router-dom";
 import CourseCardSkeleton from "@skeleton/course/CourseCardSkeleton";
 
@@ -22,7 +22,6 @@ export default function CourseCheckout() {
 
   const courseData = allCourses.find((course) => course._id === id);
   const clientSecret = useSelector((state) => state.payment.clientSecret);
-  console.log(clientSecret);
 
   if (!clientSecret) {
     return <Loading />;
