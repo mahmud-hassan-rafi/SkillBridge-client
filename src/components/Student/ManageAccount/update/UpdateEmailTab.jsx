@@ -23,7 +23,6 @@ const UpdateEmailTab = ({ setClickOnUpdateEmail }) => {
         successNotify(res.message);
       }
     } catch (error) {
-      console.log(error);
       if (error?.data?.errors) {
         error?.data?.errors.map((err) => {
           errorNotify(err?.msg || err);

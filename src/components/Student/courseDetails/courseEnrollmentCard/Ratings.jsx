@@ -1,5 +1,5 @@
 import { assets } from "@assets/assets";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React from "react";
 
 const Ratings = ({ courseData }) => {

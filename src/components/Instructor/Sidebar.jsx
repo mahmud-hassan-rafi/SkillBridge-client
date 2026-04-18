@@ -26,7 +26,7 @@ const Sidebar = () => {
     },
   ];
   return (
-    <div className="md:w-64 bg-white border-r md:min-h-[87.5vh] text-base text-gray-500 flex flex-col">
+    <div className="xl:w-64 bg-white border-r md:min-h-[87.5vh] text-base text-gray-500 flex flex-col">
       {menuItems?.map((item) => (
         <NavLink
           to={item.path}

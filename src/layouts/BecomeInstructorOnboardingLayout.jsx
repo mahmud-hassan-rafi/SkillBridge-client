@@ -1,5 +1,5 @@
-import Footer from "@pages/Instructor/become-instructor/Footer";
-import Navbar from "@pages/Instructor/become-instructor/Navbar";
+import Footer from "@components/Instructor/onBoarding/Footer";
+import Navbar from "@components/Instructor/onBoarding/Navbar";
 import React from "react";
 import { Outlet } from "react-router-dom";
 

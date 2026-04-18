@@ -1,5 +1,5 @@
 import { assets } from "@assets/assets";
-import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
+import { useInstructorOnBoardingContext } from "@hooks/ContextHook";
 import { Line } from "rc-progress";
 import React from "react";
 import { useNavigate } from "react-router-dom";

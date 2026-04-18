@@ -1,7 +1,7 @@
 import CourseStructure from "@components/Student/CourseStructure";
 import Footer from "@components/Student/Footer";
 import Rating from "@components/Student/Rating";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React, { useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import YouTube from "react-youtube";

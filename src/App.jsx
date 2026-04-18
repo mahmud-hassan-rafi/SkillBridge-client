@@ -1,9 +1,8 @@
 import React from "react";
-
+import "react-quill/dist/quill.snow.css";
 import Loading from "@components/common/Loading";
 import { useLoadUserQuery } from "@features/auth/authApi";
 import ScrollToTop from "@components/common/ScrollToTop";
-import "quill/dist/quill.snow.css";
 import AppRoutes from "@routes/AppRoutes";
 
 const App = () => {

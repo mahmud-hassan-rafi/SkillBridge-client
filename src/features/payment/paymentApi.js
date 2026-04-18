@@ -12,7 +12,6 @@ export const paymentApiEndpoints = api.injectEndpoints({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          console.log(res.data.clientSecret);
           if (res.data.clientSecret) {
             dispatch(setClientSecret(res.data.clientSecret));
           }

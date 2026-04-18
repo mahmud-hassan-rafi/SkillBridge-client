@@ -1,4 +1,4 @@
-import { useInstructorOnBoardingContext } from "@context/InstructorOnBoarding.context";
+import { useInstructorOnBoardingContext } from "@hooks/ContextHook";
 import React from "react";
 
 const Footer = () => {

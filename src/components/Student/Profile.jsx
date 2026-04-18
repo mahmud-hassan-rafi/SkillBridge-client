@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { IoMdSettings } from "react-icons/io";
 import { PiSignOut } from "react-icons/pi";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import { useLogoutMutation } from "@features/auth/authApi";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
@@ -32,7 +32,8 @@ const Profile = ({ setClickOnProfile, profilePosition, setManageAccount }) => {
         {/* profile */}
         <div className="flex items-center gap-4 border-b border-b-gray-200/70 p-3  w-full transition-colors">
           <span className="flex w-[15%] items-center justify-center">
-            <img loading="lazy"
+            <img
+              loading="lazy"
               src={user?.imageUrl}
               alt=""
               className="profile_image rounded-full"

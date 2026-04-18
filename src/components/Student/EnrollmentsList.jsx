@@ -1,4 +1,4 @@
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Line } from "rc-progress";
@@ -83,7 +83,6 @@ const EnrollmentsList = ({ enrolledCourses }) => {
                 onClick={() => navigate("/player/" + course._id)}
               >
                 {isCourseCompleted(idx) ? "Completed" : "On-Going"}
-                {/* {console.log("index -", idx, "-", isCourseCompleted(idx))} */}
               </button>
             </td>
           </tr>

@@ -1,9 +1,7 @@
 import { dummyCourses } from "@assets/assets.js";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import humanizeDuration from "humanize-duration";
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const AppContext = createContext();
+import { AppContext } from "./Context";
 
 export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
@@ -85,6 +83,3 @@ export const AppContextProvider = ({ children }) => {
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAppContext = () => useContext(AppContext);

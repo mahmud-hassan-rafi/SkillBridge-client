@@ -39,7 +39,7 @@ const Companies = () => {
         {srcList.map((src) => (
           <div key={uniqid()} className="w-20 md:w-28 h-auto">
             {!isLoaded && (
-              <div className="w-full h-12 bg-gray-200 animate-pulse" />
+              <div className="w-full h-6 sm:h-8 md:h-10 lg:h-12 bg-gray-200 animate-pulse" />
             )}
             <img
               loading="lazy"

@@ -1,5 +1,5 @@
 import InsideButtonLoader from "@components/common/InsideButtonLoader";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import { useDeleteProfileMutation } from "@features/me/meApi";
 import { errorNotify, successNotify } from "@utils/toast-notify/toastify";
 import React from "react";

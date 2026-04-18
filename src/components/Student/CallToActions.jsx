@@ -3,7 +3,7 @@ import React from "react";
 
 const CallToActions = () => {
   return (
-    <div className="flex flex-col items-center gap-4 pt-10 pb-24 px-8 md:px-0">
+    <div className="flex flex-col items-center gap-4 pt-10 pb-24 px-8 md:px-0 w-full bg-gray-200">
       <h1 className="text-home-heading-small font-semibold text-gray-800 ">
         Learn Anything, anytime, anywhere
       </h1>

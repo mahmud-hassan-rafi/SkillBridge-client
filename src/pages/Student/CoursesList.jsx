@@ -2,7 +2,7 @@ import { assets } from "@assets/assets";
 import Footer from "@components/Student/Footer";
 import CourseCard from "@components/Student/CourseCard";
 import Searchbar from "@components/Student/Searchbar";
-import { useAppContext } from "@context/AppContext";
+import { useAppContext } from "@hooks/ContextHook";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
