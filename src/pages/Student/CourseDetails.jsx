@@ -1,4 +1,11 @@
-import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useAppContext } from "@hooks/ContextHook";
 import { useParams } from "react-router-dom";
 import { assets } from "@assets/assets";
@@ -9,6 +16,8 @@ const CourseStructure = lazy(
 );
 import CourseEnrollmentCardSkeleton from "@skeleton/course/CourseEnrollmentCardSkeleton";
 import CourseStructureSkeleton from "@skeleton/course/CourseStructureSkeleton";
+import { useGetCoursesQuery } from "@features/course/courseApi";
+import Loading from "@components/common/Loading";
 const CourseEnrollementCard = lazy(
   () =>
     import("@components/Student/courseDetails/courseEnrollmentCard/CourseEnrollementCard"),
@@ -21,14 +30,22 @@ const CourseDetails = () => {
   const [playerData, setPlayerData] = useState(null);
   const scrollToDescription = useRef();
   const scrollToVideoRef = useRef();
-  const { allCourses, calculateAvarageRating } = useAppContext();
+  const { calculateAvarageRating } = useAppContext();
+
+  const { data: courses, isLoading } = useGetCoursesQuery();
+  const allCourses = useMemo(() => courses?.AllCourses, [courses?.AllCourses]);
 
   useEffect(() => {
-    (async function fetchCourseData() {
-      const findCourse = allCourses.find((course) => course._id === id);
+    (function fetchCourseData() {
+      const findCourse = allCourses?.find((course) => {
+        return course._id === id;
+      });
+
       setCourseData(findCourse);
     })();
-  }, [allCourses, id]);
+  }, [allCourses, id, isLoading]);
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -43,7 +60,7 @@ bg-linear-to-b from-cyan-100/70"
         ></div>
 
         {/* left col */}
-        <div className="z-10 max-w-xl text-gray-500">
+        <div className="z-10 w-full max-w-xl text-gray-500">
           <h1 className="md:text-course-details-heading-large text-course-details-heading-small font-semibold text-gray-800">
             {courseData?.courseTitle}
           </h1>
@@ -81,13 +98,16 @@ bg-linear-to-b from-cyan-100/70"
               {courseData?.courseRatings.length > 1 ? "ratings" : "rating"})
             </p>
             <p>
-              {courseData?.enrolledStudents.length}{" "}
-              {courseData?.enrolledStudents.length > 1 ? "students" : "student"}
+              {courseData?.enrolledStudents || 0}{" "}
+              {courseData?.enrolledStudents > 1 ? "students" : "student"}
             </p>
           </div>
           <p className="text-sm">
             Course by{" "}
-            <span className="text-blue-600 underline">Mahmud Hassan</span>
+            <span className="text-blue-600 underline cursor-pointer">
+              {courseData?.educator?.fullname &&
+                Object.values(courseData?.educator?.fullname).join(" ")}
+            </span>
           </p>
           {/* course structure components*/}
           <Suspense fallback={<CourseStructureSkeleton />}>
