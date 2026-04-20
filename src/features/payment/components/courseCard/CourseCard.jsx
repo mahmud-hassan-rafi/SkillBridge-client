@@ -20,7 +20,7 @@ const CourseCard = ({ courseData }) => {
         <img
           loading="lazy"
           onLoad={() => setImgLoaded(true)}
-          src={courseData?.courseThumbnail}
+          src={courseData?.courseThumbnail?.url}
           className={`w-full h-auto transition ${imgLoaded ? "opacity-100" : "opacity-0"}`}
           alt=""
         />
