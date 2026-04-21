@@ -1,19 +1,10 @@
-import { dummyCourses } from "@assets/assets.js";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import humanizeDuration from "humanize-duration";
 import { AppContext } from "./Context";
 
 export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
-  const [allCourses, setAllCourses] = useState([]);
   const [manageAccount, setManageAccount] = useState(false);
-
-  // fetch all courses
-  useEffect(() => {
-    (async function fetchAllCourses() {
-      setAllCourses(dummyCourses);
-    })();
-  }, [setAllCourses]);
 
   // calculate avarage rating of a course
   function calculateAvarageRating(course) {
@@ -34,23 +25,27 @@ export const AppContextProvider = ({ children }) => {
       (prevTotal, lecture) => (prevTotal += lecture?.lectureDuration),
       0,
     );
+
     return humanizeDuration(totalTime * 60 * 1000, { units: ["h", "m"] });
   };
 
   // Function to calculate course time
   const calculateCourseDuration = (course) => {
     const calculateChapterTime = (chapter) => {
-      return chapter?.chapterContent.reduce(
+      return chapter?.chapterContent?.reduce(
         (total, lecture) => total + lecture?.lectureDuration,
         0,
       );
     };
 
-    const totalTime = course?.courseContent.reduce(
+    const totalTime = course?.courseContent?.reduce(
       (prevTotal, chapter) => (prevTotal += calculateChapterTime(chapter)),
       0,
     );
-    return humanizeDuration(totalTime * 60 * 1000, { units: ["h", "m"] });
+
+    return humanizeDuration(Number(totalTime) * 60 * 1000, {
+      units: ["h", "m"],
+    });
   };
 
   // Function to calculate No. of Lectures in the courses
@@ -69,9 +64,17 @@ export const AppContextProvider = ({ children }) => {
   // for capitalize name
   const capitalize = (str) => (str ? str[0].toUpperCase() + str.slice(1) : "");
 
+  // for course actual price
+  const calculateActualPrice = useMemo(() => {
+    return (course) => {
+      return Number(
+        course?.coursePrice - (course?.discount * course?.coursePrice) / 100,
+      ).toFixed(2);
+    };
+  }, []);
+
   const value = {
     currency,
-    allCourses,
     calculateAvarageRating,
     calculateChapterTime,
     calculateCourseDuration,
@@ -79,6 +82,7 @@ export const AppContextProvider = ({ children }) => {
     capitalize,
     manageAccount,
     setManageAccount,
+    calculateActualPrice,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
