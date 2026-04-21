@@ -14,7 +14,7 @@ import CardCvcField from "./CardCvcField";
 import PayButton from "./PayButton";
 import PaymentSkeleton from "@skeleton/PaymentSkeleton";
 
-const CheckoutForm = ({ id }) => {
+const CheckoutForm = ({ id, courseData }) => {
   const stripe = useStripe();
   const elements = useElements();
   const clientSecret = useSelector((state) => state.payment.clientSecret);
@@ -136,7 +136,7 @@ const CheckoutForm = ({ id }) => {
         />
       </div>
 
-      <PayButton loading={loading} stripe={stripe} />
+      <PayButton loading={loading} stripe={stripe} courseData={courseData} />
     </form>
   );
 };

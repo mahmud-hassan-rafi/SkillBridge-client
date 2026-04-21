@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const MainLayoutStudent = () => {
   return (
-    <div className="text-default min-h-screen bg-white">
+    <div className="text-default min-w-screen min-h-screen bg-white">
       <Navbar />
       <Outlet />
     </div>
