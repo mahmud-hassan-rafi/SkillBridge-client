@@ -7,11 +7,14 @@ import Ratings from "./Ratings";
 import Price from "./Price";
 import CourseDescription from "./CourseDescription";
 import OfferTimeLeft from "./OfferTimeLeft";
+import { useAppContext } from "@hooks/ContextHook";
 
 const CourseEnrollementCard = forwardRef(
   ({ playerData, courseData, isAlreadyEnrolled }, ref) => {
     const navigate = useNavigate();
     const [imgLoaded, setImgLoaded] = useState(false);
+    const { calculateActualPrice } = useAppContext();
+    const coursePrice = calculateActualPrice(courseData);
 
     const enrollmentCheckup = isAlreadyEnrolled
       ? "Already Enrolled"
@@ -24,13 +27,13 @@ const CourseEnrollementCard = forwardRef(
       try {
         await createPaymentIntent({
           courseId: courseData._id,
-          price: courseData.coursePrice,
+          price: coursePrice,
         }).unwrap();
         navigate("/course/enroll/" + courseData._id);
       } catch {
         errorNotify("check internet connection");
       }
-    }, [navigate, createPaymentIntent, courseData]);
+    }, [navigate, createPaymentIntent, courseData, coursePrice]);
 
     return (
       <div
@@ -42,19 +45,23 @@ md:rounded-none overflow-hidden bg-white min-w-75 sm:min-w-105"
           <YouTube
             videoId={playerData?.videoId}
             opts={{ playerVars: { autoplay: 1 } }}
+            onError={({ data }) => {
+              console.log(data);
+              errorNotify(data);
+            }}
             iframeClassName="w-full aspect-video"
           />
         ) : (
           <div className="w-full h-auto">
             {!imgLoaded && (
-              <div className="w-full h-60 bg-gray-200 animate-pulse" />
+              <div className="w-full h-40 md:h-60 bg-gray-200 animate-pulse" />
             )}
 
             <img
               loading="lazy"
               onLoad={() => setImgLoaded(true)}
-              src={courseData?.courseThumbnail}
-              className={`w-full h-auto ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+              src={courseData?.courseThumbnail?.url}
+              className={`w-full h-auto max-h-60 object-cover  object-center ${imgLoaded ? "opacity-100" : "opacity-0"}`}
               alt=""
             />
           </div>
