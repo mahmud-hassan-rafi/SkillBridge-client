@@ -3,23 +3,23 @@ import React from "react";
 const GlobalImpact = () => {
   const repeatedContent = [
     {
-      number: "100K",
+      number: "10K",
       title: "Students",
     },
     {
-      number: "20+",
+      number: "7+",
       title: "Languages",
     },
     {
-      number: "250K",
+      number: "25K",
       title: "Enrollments",
     },
     {
-      number: "68+",
+      number: "8+",
       title: "Countries",
     },
     {
-      number: "700+",
+      number: "15+",
       title: "Enterprise customers",
     },
   ];

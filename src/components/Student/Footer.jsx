@@ -1,36 +1,45 @@
 import { assets } from "@assets/assets";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 md:px-36 w-full">
-      <div className="flex flex-col md:flex-row items-start px-8 md:px-0 justify-center gap-10 md:gap-32 py-10 border-b border-white/10">
+    <footer className="bg-gray-900 md:px-16 lg:px-24 xl:px-36 w-full">
+      <div className="flex flex-col md:flex-row items-start px-8 md:px-0 justify-center gap-10 xl:gap-32 py-10 border-b border-white/10">
         <div className="flex flex-col md:items-start items-center w-full">
           <img
             loading="lazy"
             src={assets.logo_dark}
             alt="logo_dark"
-            className="md:min-w-30 md:max-w-30 h-8 object-cover object-center scale-110"
+            className="w-25 md:w-30 max-w-30 h-8 object-cover object-center scale-110"
           />
           <p className="mt-6 text-center md:text-left text-sm text-white/80">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text.
           </p>
         </div>
-        <div className="flex flex-col items-center md:items-start w-full">
-          <h2 className="font-semibold text-white mb-5">Company</h2>
-          <ul className="flex md:flex-col w-full items-start justify-between text-sm text-white/80 md:space-y-2 md:w-23">
+        <div className="flex flex-col items-center md:items-center w-full">
+          <ul className="flex md:flex-col w-full max-w-md items-start justify-between text-sm text-white/80 md:space-y-2 md:w-23">
+            <h2 className="font-semibold text-white text-lg mb-4">Company</h2>
             <li>
-              <a href="#">Home</a>
+              <Link to="/home" className="hover:text-gray-100">
+                Home
+              </Link>
             </li>
             <li>
-              <a href="#">About us</a>
+              <Link to="/about" className="hover:text-gray-100">
+                About us
+              </Link>
             </li>
             <li>
-              <a href="#">Contact us</a>
+              <Link to="/contact" className="hover:text-gray-100">
+                Contact us
+              </Link>
             </li>
             <li>
-              <a href="#">Privacy policy</a>
+              <Link to="/privacy-policy" className="hover:text-gray-100">
+                Privacy policy
+              </Link>
             </li>
           </ul>
         </div>

@@ -32,7 +32,15 @@ const Dashboard = () => {
 
   if (isLoading) return <Loading />;
 
-  return Object.keys(data.dashboard).length > 0 ? (
+  // if (isError) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <p className="text-red-500">Error: {error?.data?.message}</p>
+  //     </div>
+  //   );
+  // }
+
+  return (
     <div className="min-h-screen flex flex-col items-start justify-between gap-8 md:p-8 md:pb-0 p-4 pt-10 pb-0">
       <div className="space-y-5">
         <div className="flex flex-wrap gap-5 px-7 md:px-0 items-center">
@@ -81,7 +89,7 @@ const Dashboard = () => {
             </div>
             <div>
               <p className="text-2xl font-medium text-gray-600">
-                {data?.dashboard?.totalCourse}
+                {data?.dashboard?.totalCourse || 0}
               </p>
               <p className="text-base text-gray-500">Total Courses</p>
             </div>
@@ -106,7 +114,7 @@ const Dashboard = () => {
             <div>
               <p className="text-2xl font-medium text-gray-600">
                 {currency}
-                {totalEarnings}
+                {totalEarnings || 0}
               </p>
               <p className="text-base text-gray-500">Total Earnings</p>
             </div>
@@ -116,9 +124,7 @@ const Dashboard = () => {
         {/* latest enrollments histories */}
         <div>
           <h2 className="pb-4 text-lg font-medium">Latest Enrollments</h2>
-          {data?.dashboard?.latestEnrollments?.length === 0 ? (
-            <p className="text-gray-600 font-medium ">No enrollments yet</p>
-          ) : (
+          {data?.dashboard?.latestEnrollments?.length > 0 ? (
             <div className="flex flex-col items-center max-w-4xl w-full overflow-hidden rounded-md bg-white border border-gray-500/20">
               <table className="table-fixed md:table-auto w-full overflow-hidden">
                 <thead className="text-gray-900 border-b border-gray-500/20 text-sm text-left">
@@ -147,12 +153,12 @@ const Dashboard = () => {
                 </tbody>
               </table>
             </div>
+          ) : (
+            <p className="text-gray-600 font-medium ">No enrollments yet</p>
           )}
         </div>
       </div>
     </div>
-  ) : (
-    <Loading />
   );
 };
 
