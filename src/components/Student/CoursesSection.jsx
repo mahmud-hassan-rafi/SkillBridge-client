@@ -1,10 +1,15 @@
-import { useAppContext } from "@hooks/ContextHook";
 import React from "react";
 import { Link } from "react-router-dom";
 import CourseCard from "./CourseCard";
+import { useGetCoursesQuery } from "@features/course/courseApi";
+import Loading from "@components/common/Loading";
+import CourseCardSkeleton from "@skeleton/course/CourseCardSkeleton";
 
 const CoursesSection = () => {
-  const { allCourses } = useAppContext();
+  const { data: courses, isLoading } = useGetCoursesQuery();
+  const allCourses = structuredClone(courses?.AllCourses);
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="py-16 md:px-16 lg:px-24 xl:px-40 px-6">
@@ -18,9 +23,13 @@ const CoursesSection = () => {
       </p>
       <div className="grid px-4 md:px-0 md:my-16 my-10 gap-4 grid-cols-auto">
         {/* Course card */}
-        {allCourses.slice(0, 4).map((course, idx) => (
-          <CourseCard key={idx} course={course} />
-        ))}
+        {allCourses.length === 0 ? (
+          <CourseCardSkeleton />
+        ) : (
+          allCourses
+            ?.slice(0, 4)
+            ?.map((course, idx) => <CourseCard key={idx} course={course} />)
+        )}
       </div>
       <Link
         to={"/course-list"}
