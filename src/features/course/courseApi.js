@@ -21,9 +21,6 @@ const courseApiEndpoints = api.injectEndpoints({
       query: () => "/courses/dashboard",
       providesTags: ["Course"],
     }),
-    getCourses: builder.query({
-      query: () => "/courses/get",
-    }),
   }),
 });
 
@@ -32,5 +29,4 @@ export const {
   useInstructorCoursesQuery,
   useInstructorEnrollmentListQuery,
   useDashboardQuery,
-  useGetCoursesQuery,
 } = courseApiEndpoints;

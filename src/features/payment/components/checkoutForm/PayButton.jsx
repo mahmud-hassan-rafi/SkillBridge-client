@@ -1,14 +1,10 @@
-import { useAppContext } from "@hooks/ContextHook";
-
-const PayButton = ({ loading, stripe, courseData }) => {
-  const { calculateActualPrice } = useAppContext();
-
+const PayButton = ({ loading, stripe }) => {
   return (
     <button
       disabled={!stripe || loading}
       className="w-full bg-black text-white py-2 rounded cursor-pointer"
     >
-      {loading ? "Processing..." : `Pay $${calculateActualPrice(courseData)}`}
+      {loading ? "Processing..." : "Pay Now"}
     </button>
   );
 };

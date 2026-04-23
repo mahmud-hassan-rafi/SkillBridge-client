@@ -1,8 +1,7 @@
-import Loading from "@components/common/Loading";
 import CourseStructure from "@components/Student/CourseStructure";
 import Footer from "@components/Student/Footer";
 import Rating from "@components/Student/Rating";
-import { useGetCoursesQuery } from "@features/course/courseApi";
+import { useAppContext } from "@hooks/ContextHook";
 import React, { useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import YouTube from "react-youtube";
@@ -10,17 +9,13 @@ import YouTube from "react-youtube";
 const Player = () => {
   const { courseId } = useParams();
   const [playerData, setPlayerData] = useState(null);
-  const { data: courses, isLoading } = useGetCoursesQuery();
-  const allCourses = structuredClone(courses?.AllCourses);
-
+  const { allCourses } = useAppContext();
   const scrollToVideoRef = useRef();
 
   const courseData = useMemo(() => {
     const course = allCourses?.find((course) => course._id === courseId);
     return course;
   }, [courseId, allCourses]);
-
-  if (isLoading) return <Loading />;
 
   return (
     <>

@@ -114,6 +114,7 @@ const Signup = () => {
                     };
                   });
                 }}
+                required
                 placeholder="Lastname"
                 className="text-base rounded w-1/2 p-3 bg-[#eeeeee] placeholder:text-base outline-blue-100 mb-3"
               />

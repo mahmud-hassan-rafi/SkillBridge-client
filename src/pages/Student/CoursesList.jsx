@@ -2,20 +2,14 @@ import { assets } from "@assets/assets";
 import Footer from "@components/Student/Footer";
 import CourseCard from "@components/Student/CourseCard";
 import Searchbar from "@components/Student/Searchbar";
-import React, { useEffect, useMemo, useState } from "react";
+import { useAppContext } from "@hooks/ContextHook";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { useGetCoursesQuery } from "@features/course/courseApi";
-import Loading from "@components/common/Loading";
 
 const CoursesList = () => {
   const navigate = useNavigate();
   const { input } = useParams();
-  const { data: courses, isLoading } = useGetCoursesQuery();
-  const allCourses = useMemo(
-    () => courses?.AllCourses || [],
-    [courses?.AllCourses],
-  );
-
+  const { allCourses } = useAppContext();
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [isClickOnClose, setIsClickOnClose] = useState(false);
 
@@ -35,7 +29,6 @@ const CoursesList = () => {
     })();
   }, [allCourses, input]);
 
-  if (isLoading) return <Loading />;
   return (
     <>
       <div className="relative md:px-12 lg:px-24 xl:px-36 px-8 pt-8 text-left">
@@ -76,7 +69,7 @@ const CoursesList = () => {
           </div>
         )}
         <div className="grid px-2 md:px-0 md:my-16 my-10 gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {filteredCourses?.length > 0 ? (
+          {filteredCourses.length > 0 ? (
             filteredCourses.map((course, idx) => (
               <CourseCard key={idx} course={course} />
             ))

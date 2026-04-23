@@ -75,8 +75,11 @@ const Navbar = () => {
       }`}
     >
       {auth?.isAuthenticated && (
-        <div className="md:hidden cursor-pointer" ref={menubarRef}>
-          <CgMenuRightAlt className="size-5" onClick={handleClickOnMenubar} />
+        <div ref={menubarRef}>
+          <CgMenuRightAlt
+            className="md:hidden size-5 cursor-pointer"
+            onClick={handleClickOnMenubar}
+          />
         </div>
       )}
       {clickOnMenubar && (

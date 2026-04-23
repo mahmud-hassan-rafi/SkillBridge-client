@@ -23,8 +23,8 @@ const CourseCard = ({ course }) => {
           <img
             loading="lazy"
             onLoad={handleOnload}
-            className={`w-full h-min max-h-40 object-cover object-center ${loaded ? "opacity-100" : "opacity-0"}`}
-            src={course.courseThumbnail?.url}
+            className={`w-full h-min object-fit object-center ${loaded ? "opacity-100" : "opacity-0"}`}
+            src={course.courseThumbnail}
             alt=""
           />
         </div>
@@ -53,17 +53,13 @@ const CourseCard = ({ course }) => {
           </div>
           <p className="text-gray-500">({course?.courseRatings?.length})</p>
         </div>
-        {course.coursePrice > 0 ? (
-          <p className="text-gray-800 text-base text-semibold">
-            {currency}
-            {(
-              course.coursePrice -
-              (course.discount * course.coursePrice) / 100
-            ).toFixed(2)}
-          </p>
-        ) : (
-          <p className="text-gray-800 text-base text-semibold">Free</p>
-        )}
+        <p className="text-gray-800 text-base text-semibold">
+          {currency}
+          {(
+            course.coursePrice -
+            (course.discount * course.coursePrice) / 100
+          ).toFixed(2)}
+        </p>
       </div>
     </Link>
   );
