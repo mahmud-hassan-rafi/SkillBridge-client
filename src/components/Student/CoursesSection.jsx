@@ -23,12 +23,12 @@ const CoursesSection = () => {
       </p>
       <div className="grid px-4 md:px-0 md:my-16 my-10 gap-4 grid-cols-auto">
         {/* Course card */}
-        {allCourses.length === 0 ? (
-          <CourseCardSkeleton />
-        ) : (
+        {!isLoading && allCourses?.length > 0 ? (
           allCourses
             ?.slice(0, 4)
             ?.map((course, idx) => <CourseCard key={idx} course={course} />)
+        ) : (
+          <CourseCardSkeleton />
         )}
       </div>
       <Link
