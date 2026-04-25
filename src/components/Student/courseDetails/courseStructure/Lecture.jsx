@@ -52,7 +52,7 @@ const Lecture = ({
                     ...lecture,
                     chapter: idx + 1,
                     lecture: i + 1,
-                    videoId: lecture?.lectureUrl.split("/").pop(),
+                    videoId: lecture?.lectureUrl.split("v=").pop(),
                   });
                   scrollToVideoRef?.current?.scrollIntoView({
                     behavior: "smooth",
