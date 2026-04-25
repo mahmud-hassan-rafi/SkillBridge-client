@@ -1,12 +1,13 @@
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { useSelector } from "react-redux";
 import Loading from "@components/common/Loading";
 import CheckoutForm from "@features/payment/components/checkoutForm/CheckoutForm";
 import CourseCard from "../components/courseCard/CourseCard";
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import CourseCardSkeleton from "@skeleton/course/CourseCardSkeleton";
-import { useGetCoursesQuery } from "@features/course/courseApi";
+import { useEffect, useState } from "react";
+import { useAppContext } from "@hooks/ContextHook";
+import { useCreatePaymentIntentMutation } from "../paymentApi";
 
 let stripePromise;
 
@@ -17,19 +18,30 @@ try {
 }
 
 export default function CourseCheckout() {
-  const { data: courses, isLoading } = useGetCoursesQuery();
-  const allCourses = structuredClone(courses?.AllCourses);
-
   const { id } = useParams();
+  const { course: courseData } = useLoaderData();
+  console.log(courseData);
+  const [createPaymentIntent, { isLoading: paymentIntentLoading }] =
+    useCreatePaymentIntentMutation();
 
-  const courseData = allCourses.find((course) => course._id === id);
-  const clientSecret = useSelector((state) => state.payment.clientSecret);
+  const [clientSecret, setClientSecret] = useState(null);
 
-  if (isLoading) return <Loading />;
+  const { calculateActualPrice } = useAppContext();
+  const coursePrice = calculateActualPrice(courseData);
 
-  if (!clientSecret) {
-    return <Loading />;
-  }
+  useEffect(() => {
+    (async () => {
+      if (courseData) {
+        const { clientSecret } = await createPaymentIntent({
+          courseId: courseData._id,
+          price: coursePrice,
+        }).unwrap();
+        setClientSecret(clientSecret);
+      }
+    })();
+  }, []);
+
+  if (paymentIntentLoading || !clientSecret) return <Loading />;
 
   return (
     <div className="w-full p-6 sm:px-8 xl:px-16 bg-linear-to-b from-cyan-100/70">
@@ -46,13 +58,15 @@ export default function CourseCheckout() {
 }
 
 // loader data use kora plan ache after building backend.
-// export const CourseCheckoutLoader = async ({params}) => {
-//   const {id} = params;
-//   const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/courses/${id}`);
+export const CourseCheckoutLoader = async ({ params }) => {
+  const { id } = params;
+  const res = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/courses/get/${id}`,
+  );
 
-//   if (!res.ok) {
-//     throw new Error("course loaded failed");
-//   }
+  if (!res.ok) {
+    throw new Error("course loaded failed");
+  }
 
-//   return res.json();
-// }
+  return res.json();
+};
