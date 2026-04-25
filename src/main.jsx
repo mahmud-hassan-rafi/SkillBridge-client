@@ -12,19 +12,17 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <AppContextProvider>
-        <BrowserRouter>
-          <App />
+        <App />
 
-          {window.addEventListener("load", () => {
-            const preloader = document.getElementById("preloader");
+        {window.addEventListener("load", () => {
+          const preloader = document.getElementById("preloader");
 
-            if (preloader) {
-              preloader.style.display = "none";
-            }
-          })}
-        </BrowserRouter>
+          if (preloader) {
+            preloader.style.display = "none";
+          }
+        })}
       </AppContextProvider>
     </Provider>
     <ToastContainer />
-  </StrictMode>
+  </StrictMode>,
 );
