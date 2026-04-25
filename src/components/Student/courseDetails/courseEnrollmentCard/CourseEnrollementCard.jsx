@@ -1,4 +1,3 @@
-import { useCreatePaymentIntentMutation } from "@features/payment/paymentApi";
 import { errorNotify } from "@utils/toast-notify/toastify";
 import React, { forwardRef, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,33 +6,23 @@ import Ratings from "./Ratings";
 import Price from "./Price";
 import CourseDescription from "./CourseDescription";
 import OfferTimeLeft from "./OfferTimeLeft";
-import { useAppContext } from "@hooks/ContextHook";
 
 const CourseEnrollementCard = forwardRef(
   ({ playerData, courseData, isAlreadyEnrolled }, ref) => {
     const navigate = useNavigate();
     const [imgLoaded, setImgLoaded] = useState(false);
-    const { calculateActualPrice } = useAppContext();
-    const coursePrice = calculateActualPrice(courseData);
 
     const enrollmentCheckup = isAlreadyEnrolled
       ? "Already Enrolled"
       : "Enroll now";
 
-    const [createPaymentIntent, { isLoading }] =
-      useCreatePaymentIntentMutation();
-
     const handleEnrollment = useCallback(async () => {
       try {
-        await createPaymentIntent({
-          courseId: courseData._id,
-          price: coursePrice,
-        }).unwrap();
         navigate("/course/enroll/" + courseData._id);
       } catch {
         errorNotify("check internet connection");
       }
-    }, [navigate, createPaymentIntent, courseData, coursePrice]);
+    }, [navigate, courseData]);
 
     return (
       <div
@@ -45,10 +34,7 @@ md:rounded-none overflow-hidden bg-white min-w-75 sm:min-w-105"
           <YouTube
             videoId={playerData?.videoId}
             opts={{ playerVars: { autoplay: 1 } }}
-            onError={({ data }) => {
-              console.log(data);
-              errorNotify(data);
-            }}
+            onError={() => console.log("error")}
             iframeClassName="w-full aspect-video"
           />
         ) : (
@@ -82,7 +68,7 @@ md:rounded-none overflow-hidden bg-white min-w-75 sm:min-w-105"
 text-white font-medium"
             onClick={handleEnrollment}
           >
-            {!isLoading ? enrollmentCheckup : "Processing..."}
+            {enrollmentCheckup}
           </button>
           {/* course description */}
           <CourseDescription />

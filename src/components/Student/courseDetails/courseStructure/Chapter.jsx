@@ -100,4 +100,4 @@ const Chapter = ({
   );
 };
 
-export default Chapter;
+export default React.memo(Chapter);
