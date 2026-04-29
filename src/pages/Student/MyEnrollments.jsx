@@ -1,14 +1,14 @@
 import React from "react";
 
 import Footer from "@components/Student/Footer";
-import { useSelector } from "react-redux";
 import EnrollmentsList from "@components/Student/EnrollmentsList";
-import { useEnrolledCoursesQuery } from "@features/me/meApi";
 import Loading from "@components/common/Loading";
+import { useGetEnrollmentsQuery } from "@features/enrollement/enrollmentApi";
 
 const MyEnrollments = () => {
-  const { isLoading } = useEnrolledCoursesQuery();
-  const enrolledCourses = useSelector((state) => state?.me?.enrolledCourses);
+  const { data, isLoading } = useGetEnrollmentsQuery() || [];
+
+  const enrolledCourses = React.useMemo(() => data?.courses || [], [data]);
 
   return !isLoading ? (
     <>
