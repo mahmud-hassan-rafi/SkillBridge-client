@@ -3,11 +3,17 @@ import { Elements } from "@stripe/react-stripe-js";
 import Loading from "@components/common/Loading";
 import CheckoutForm from "@features/payment/components/checkoutForm/CheckoutForm";
 import CourseCard from "../components/courseCard/CourseCard";
-import { useLoaderData, useParams } from "react-router-dom";
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import CourseCardSkeleton from "@skeleton/course/CourseCardSkeleton";
 import { useEffect, useState } from "react";
 import { useAppContext } from "@hooks/ContextHook";
 import { useCreatePaymentIntentMutation } from "../paymentApi";
+import { useIsEnrolledQuery } from "@features/enrollement/enrollmentApi";
 
 let stripePromise;
 
@@ -18,17 +24,31 @@ try {
 }
 
 export default function CourseCheckout() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const { course: courseData } = useLoaderData();
-  console.log(courseData);
   const [createPaymentIntent, { isLoading: paymentIntentLoading }] =
     useCreatePaymentIntentMutation();
+
+  const { data: isBuyedCourse, isLoading: isEnrolledCheckingTime } =
+    useIsEnrolledQuery(id, {
+      skip: !location?.state?.isAlreadyEnrolled,
+    }) || false;
 
   const [clientSecret, setClientSecret] = useState(null);
 
   const { calculateActualPrice } = useAppContext();
   const coursePrice = calculateActualPrice(courseData);
+  // if the course is already enrolled then navigate to player page.
+  useEffect(() => {
+    if (location?.state?.isAlreadyEnrolled || isBuyedCourse?.isEnrolled) {
+      navigate(`/player/${id}`);
+    }
+  }, [navigate, isBuyedCourse, location?.state?.isAlreadyEnrolled, id]);
 
+  // create payment intent when the component is mounted.
   useEffect(() => {
     (async () => {
       if (courseData) {
@@ -41,7 +61,8 @@ export default function CourseCheckout() {
     })();
   }, []);
 
-  if (paymentIntentLoading || !clientSecret) return <Loading />;
+  if (paymentIntentLoading || !clientSecret | isEnrolledCheckingTime)
+    return <Loading />;
 
   return (
     <div className="w-full p-6 sm:px-8 xl:px-16 bg-linear-to-b from-cyan-100/70">

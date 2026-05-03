@@ -18,6 +18,7 @@ import CourseEnrollmentCardSkeleton from "@skeleton/course/CourseEnrollmentCardS
 import CourseStructureSkeleton from "@skeleton/course/CourseStructureSkeleton";
 import { useGetCoursesQuery } from "@features/course/courseApi";
 import Loading from "@components/common/Loading";
+import { useIsEnrolledQuery } from "@features/enrollement/enrollmentApi";
 const CourseEnrollementCard = lazy(
   () =>
     import("@components/Student/courseDetails/courseEnrollmentCard/CourseEnrollementCard"),
@@ -26,12 +27,15 @@ const CourseEnrollementCard = lazy(
 const CourseDetails = () => {
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
-  const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setPlayerData] = useState(null);
   const scrollToDescription = useRef();
   const scrollToVideoRef = useRef();
   const { calculateAvarageRating } = useAppContext();
 
+  const { data: isBuyedCourse, isLoading: isEnrolledCheckingTime } =
+    useIsEnrolledQuery(id, { refetchOnMountOrArgChange: true }) || false;
+
+  console.log(isBuyedCourse);
   const { data: courses, isLoading } = useGetCoursesQuery();
   const allCourses = useMemo(() => courses?.AllCourses, [courses?.AllCourses]);
 
@@ -45,7 +49,7 @@ const CourseDetails = () => {
     })();
   }, [allCourses, id, isLoading]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isEnrolledCheckingTime) return <Loading />;
 
   return (
     <>
@@ -114,7 +118,7 @@ bg-linear-to-b from-cyan-100/70"
             <CourseStructure
               setPlayerData={setPlayerData}
               courseData={courseData}
-              isBuyedCourse={isAlreadyEnrolled}
+              isBuyedCourse={false}
               scrollToVideoRef={scrollToVideoRef}
             />
           </Suspense>
@@ -140,7 +144,7 @@ bg-linear-to-b from-cyan-100/70"
           <CourseEnrollementCard
             playerData={playerData}
             courseData={courseData}
-            isAlreadyEnrolled={isAlreadyEnrolled}
+            isAlreadyEnrolled={isBuyedCourse?.isEnrolled || false}
             ref={scrollToVideoRef}
           />
         </Suspense>

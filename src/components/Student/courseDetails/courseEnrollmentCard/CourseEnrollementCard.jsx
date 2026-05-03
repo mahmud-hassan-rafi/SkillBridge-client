@@ -18,11 +18,13 @@ const CourseEnrollementCard = forwardRef(
 
     const handleEnrollment = useCallback(async () => {
       try {
-        navigate("/course/enroll/" + courseData._id);
+        navigate("/course/enroll/" + courseData._id, {
+          state: { isAlreadyEnrolled },
+        });
       } catch {
         errorNotify("check internet connection");
       }
-    }, [navigate, courseData]);
+    }, [navigate, courseData, isAlreadyEnrolled]);
 
     return (
       <div

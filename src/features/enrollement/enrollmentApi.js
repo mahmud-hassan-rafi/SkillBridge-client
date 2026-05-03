@@ -5,7 +5,11 @@ const enrollmentApiEndpoints = api.injectEndpoints({
     getEnrollments: builder.query({
       query: () => "/enrollment/my-enrollments",
     }),
+    isEnrolled: builder.query({
+      query: (courseId) => `/enrollment/is-enrolled/${courseId}`,
+    }),
   }),
 });
 
-export const { useGetEnrollmentsQuery } = enrollmentApiEndpoints;
+export const { useGetEnrollmentsQuery, useIsEnrolledQuery } =
+  enrollmentApiEndpoints;

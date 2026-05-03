@@ -6,13 +6,13 @@ import Loading from "@components/common/Loading";
 import { useGetEnrollmentsQuery } from "@features/enrollement/enrollmentApi";
 
 const MyEnrollments = () => {
-  const { data, isLoading } = useGetEnrollmentsQuery() || [];
+  const { data, isLoading } = useGetEnrollmentsQuery();
 
   const enrolledCourses = React.useMemo(() => data?.courses || [], [data]);
 
   return !isLoading ? (
     <>
-      <div className="md:px-36 px-8 py-10 min-h-[91vh]">
+      <div className="md:px-36 px-6 py-10 min-h-[91vh]">
         <h1 className="text-2xl font-semibold">My Enrollments</h1>
         {enrolledCourses?.length > 0 ? (
           <EnrollmentsList enrolledCourses={enrolledCourses} />
