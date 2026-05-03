@@ -5,6 +5,7 @@ import { AppContext } from "./Context";
 export const AppContextProvider = ({ children }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [manageAccount, setManageAccount] = useState(false);
+  const [isCompletedLecture, setIsCompletedLecture] = useState(false);
 
   // calculate avarage rating of a course
   function calculateAvarageRating(course) {
@@ -83,6 +84,8 @@ export const AppContextProvider = ({ children }) => {
     manageAccount,
     setManageAccount,
     calculateActualPrice,
+    isCompletedLecture,
+    setIsCompletedLecture,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
