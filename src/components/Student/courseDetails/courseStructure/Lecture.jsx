@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import { FaLock } from "react-icons/fa6";
+import { useAppContext } from "@hooks/ContextHook";
 
 const Lecture = ({
   lecture,
@@ -14,12 +15,14 @@ const Lecture = ({
   i,
 }) => {
   const navigate = useNavigate();
+  const { isCompletedLecture } = useAppContext();
+
   return (
     <li className="flex items-center gap-3 py-1.5">
       {lecture?.isPreviewFree || isBuyedCourse ? (
         <img
           loading="lazy"
-          src={false ? assets.blue_tick_icon : assets.play_icon}
+          src={isCompletedLecture ? assets.blue_tick_icon : assets.play_icon}
           alt="play_icon"
           className="w-4 h-4"
         />
