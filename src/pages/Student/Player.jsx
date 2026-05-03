@@ -3,8 +3,11 @@ import CourseStructure from "@components/Student/CourseStructure";
 import Footer from "@components/Student/Footer";
 import Rating from "@components/Student/Rating";
 import { useGetCoursesQuery } from "@features/course/courseApi";
-import React, { useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useIsEnrolledQuery } from "@features/enrollement/enrollmentApi";
+import { useAppContext } from "@hooks/ContextHook";
+import { errorNotify } from "@utils/toast-notify/toastify";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import YouTube from "react-youtube";
 
 const Player = () => {
@@ -12,7 +15,10 @@ const Player = () => {
   const [playerData, setPlayerData] = useState(null);
   const { data: courses, isLoading } = useGetCoursesQuery();
   const allCourses = structuredClone(courses?.AllCourses);
-
+  const { data: isBuyedCourse, isLoading: isEnrolledCheckingTime } =
+    useIsEnrolledQuery(courseId) || false;
+  const navigate = useNavigate();
+  const { isCompletedLecture, setIsCompletedLecture } = useAppContext();
   const scrollToVideoRef = useRef();
 
   const courseData = useMemo(() => {
@@ -20,7 +26,15 @@ const Player = () => {
     return course;
   }, [courseId, allCourses]);
 
-  if (isLoading) return <Loading />;
+  useEffect(() => {
+    if (!isBuyedCourse?.isEnrolled) {
+      navigate(`/course/${courseId}`);
+      errorNotify("You have to enroll the course to access the player");
+    }
+  }, [navigate, isBuyedCourse, courseId]);
+
+  if (isLoading || isEnrolledCheckingTime) return <Loading />;
+  console.log(isBuyedCourse);
 
   return (
     <>
@@ -30,10 +44,9 @@ const Player = () => {
           <CourseStructure
             courseData={courseData}
             setPlayerData={setPlayerData}
-            buyedCourse={true}
+            isBuyedCourse={isBuyedCourse?.isEnrolled || false}
             scrollToVideoRef={scrollToVideoRef}
           />
-
           <div className="flex items-center gap-2 py-3 mt-10">
             <h1 className="text-xl font-bold">Rate this Courses: </h1>
             <Rating initialState={0} />
@@ -46,6 +59,7 @@ const Player = () => {
             <div>
               <YouTube
                 videoId={playerData?.videoId}
+                opts={{ playerVars: { autoplay: 1 } }}
                 iframeClassName="w-full aspect-video h-auto"
               />
 
@@ -55,15 +69,18 @@ const Player = () => {
                     {playerData?.chapter}.{playerData?.lecture}{" "}
                     {playerData?.lectureTitle}
                   </p>
-                  <button className="text-blue-600 ">
-                    {false ? "Completed" : "Mark Complete"}
+                  <button
+                    onClick={() => setIsCompletedLecture((prev) => !prev)}
+                    className="text-blue-600 "
+                  >
+                    {isCompletedLecture ? "Completed" : "Mark Complete"}
                   </button>
                 </div>
               )}
             </div>
           ) : (
             <img
-              src={courseData?.courseThumbnail}
+              src={courseData?.courseThumbnail?.url}
               alt=""
               ref={scrollToVideoRef}
             />
