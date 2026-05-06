@@ -27,11 +27,13 @@ const Player = () => {
   }, [courseId, allCourses]);
 
   useEffect(() => {
+    if (isEnrolledCheckingTime) return;
+
     if (!isBuyedCourse?.isEnrolled) {
       navigate(`/course/${courseId}`);
       errorNotify("You have to enroll the course to access the player");
     }
-  }, [navigate, isBuyedCourse, courseId]);
+  }, [navigate, isBuyedCourse, courseId, isEnrolledCheckingTime]);
 
   if (isLoading || isEnrolledCheckingTime) return <Loading />;
   console.log(isBuyedCourse);
