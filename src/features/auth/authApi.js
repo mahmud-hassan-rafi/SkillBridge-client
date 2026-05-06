@@ -67,7 +67,7 @@ export const authApiEndpoints = api.injectEndpoints({
           );
         }
       },
-      invalidatesTags: ["userAuth"],
+      invalidatesTags: ["userAuth", "Enrollment"],
     }),
   }),
 });
