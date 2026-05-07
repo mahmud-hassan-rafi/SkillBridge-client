@@ -66,8 +66,8 @@ md:rounded-none overflow-hidden bg-white min-w-75 sm:min-w-105"
 
           {/* enroll now button */}
           <button
-            className="md:mt-6 mt-4 w-full h-12 rounded bg-blue-600
-text-white font-medium"
+            className={`md:mt-6 mt-4 w-full h-12 rounded bg-blue-600
+text-white font-medium ${isAlreadyEnrolled ? "cursor-not-allowed bg-gray-400" : "hover:bg-blue-700"}`}
             onClick={handleEnrollment}
           >
             {enrollmentCheckup}
