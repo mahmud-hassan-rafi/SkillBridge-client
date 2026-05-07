@@ -17,7 +17,6 @@ const Home = () => {
       <div className="w-full">
         <GlobalImpact />
         <CallToActions />
-        <Footer />
       </div>
     </div>
   );

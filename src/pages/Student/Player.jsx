@@ -40,7 +40,7 @@ const Player = () => {
 
   return (
     <>
-      <div className="min-h-[89vh] p-4 sm:p-10 flex flex-col-reverse justify-end md:grid md:grid-cols-2 md:gap-10 gap-4 ">
+      <div className="min-h-[89vh] p-4 sm:p-10 flex flex-col-reverse justify-end md:grid md:grid-cols-2 md:gap-10 gap-4 bg-linear-to-b from-cyan-100/70 to-white">
         {/* left cols */}
         <div>
           <CourseStructure
@@ -73,7 +73,7 @@ const Player = () => {
                   </p>
                   <button
                     onClick={() => setIsCompletedLecture((prev) => !prev)}
-                    className="text-blue-600 "
+                    className="text-blue-600 cursor-pointer"
                   >
                     {isCompletedLecture ? "Completed" : "Mark Complete"}
                   </button>
@@ -89,7 +89,6 @@ const Player = () => {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

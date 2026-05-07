@@ -1,3 +1,4 @@
+import React from "react";
 import Enrollment from "@features/enrollement/components/Enrollment";
 import uniqid from "uniqid";
 
@@ -32,4 +33,4 @@ const EnrollmentsList = ({ enrolledCourses }) => {
   );
 };
 
-export default EnrollmentsList;
+export default React.memo(EnrollmentsList);
