@@ -18,26 +18,36 @@ const Footer = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text.
           </p>
         </div>
-        <div className="flex flex-col items-center md:items-center w-full">
-          <ul className="flex md:flex-col w-full max-w-md items-start justify-between text-sm text-white/80 md:space-y-2 md:w-23">
-            <h2 className="font-semibold text-white text-lg mb-4">Company</h2>
+        <div className="flex flex-col items-center w-full">
+          <ul className="flex md:flex-col w-full max-w-md items-center md:items-start justify-between text-sm text-white/80 md:space-y-2 md:w-23">
+            <h2 className="max-md:hidden font-semibold text-white text-lg mb-0 md:mb-4 group:flex group:items-center">
+              Skillbridge
+            </h2>
             <li>
-              <Link to="/home" className="hover:text-gray-100">
+              <Link to="/home" className="hover:text-gray-100 group">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-gray-100">
+              <Link to="/about" className="hover:text-gray-100 group">
                 About us
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="hover:text-gray-100">
+              <Link to="/contact" className="hover:text-gray-100 group">
                 Contact us
               </Link>
             </li>
             <li>
-              <Link to="/privacy-policy" className="hover:text-gray-100">
+              <Link
+                to="/terms-and-conditions"
+                className="hover:text-gray-100 group"
+              >
+                Terms of use
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy-policy" className="hover:text-gray-100 group">
                 Privacy policy
               </Link>
             </li>
@@ -64,7 +74,7 @@ placeholder-gray-500 outline-none w-64 h-9 rounded px-2 text-sm"
         </div>
       </div>
       <p className="py-4 text-center text-xs md:text-sm text-white/60">
-        Copyright 2026 © SkillBrigde. All Right Reserved
+        Copyright 2026 © SkillBridge. All Right Reserved
       </p>
     </footer>
   );
