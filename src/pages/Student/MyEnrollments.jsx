@@ -12,7 +12,7 @@ const MyEnrollments = () => {
 
   return !isLoading ? (
     <>
-      <div className="md:px-36 px-6 py-10 min-h-[91vh]">
+      <div className="md:px-36 px-6 py-10 min-h-[91vh] bg-linear-to-b from-cyan-100/70 to-white">
         <h1 className="text-2xl font-semibold">My Enrollments</h1>
         {enrolledCourses?.length > 0 ? (
           <EnrollmentsList enrolledCourses={enrolledCourses} />
@@ -24,7 +24,6 @@ const MyEnrollments = () => {
           </div>
         )}
       </div>
-      <Footer />
     </>
   ) : (
     <Loading />

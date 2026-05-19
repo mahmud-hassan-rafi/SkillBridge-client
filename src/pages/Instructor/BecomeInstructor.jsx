@@ -1,9 +1,10 @@
 import { assets } from "@assets/assets";
+import ScrollToTop from "@components/common/ScrollToTop";
 import BecomeInstructorBottomCTA from "@components/Instructor/becomeInstructor/BecomeInstructorBottomCTA";
 import GlobalImpact from "@components/Instructor/becomeInstructor/GlobalImpact";
 import ReasonToStart from "@components/Instructor/becomeInstructor/ReasonToStart";
-import Footer from "@components/Instructor/Footer";
-import Navbar from "@components/Instructor/Navbar";
+import Footer from "@components/Student/Footer";
+import Navbar from "@components/Student/navbar/Navbar";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +13,7 @@ const BecomeInstructor = () => {
 
   return (
     <div className="text-base min-h-screen bg-white">
+      <ScrollToTop />
       <Navbar />
       <div className="flex-1 overflow-y-auto">
         <div className="flex flex-col">

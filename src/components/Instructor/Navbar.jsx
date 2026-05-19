@@ -20,7 +20,7 @@ const Navbar = () => {
         <p>Hi! {instructor?.fullname?.firstname}</p>
         <img
           loading="lazy"
-          src={instructor.imageUrl}
+          src={instructor?.imageUrl}
           className="w-10 h-10 rounded-full object-cover object-center"
           alt=""
         />

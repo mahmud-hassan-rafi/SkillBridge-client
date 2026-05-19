@@ -1,5 +1,5 @@
 import { assets } from "@assets/assets";
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import { FaLock } from "react-icons/fa6";
@@ -17,6 +17,20 @@ const Lecture = ({
   const navigate = useNavigate();
   const { isCompletedLecture } = useAppContext();
 
+  const handlePlayerData = useCallback(() => {
+    setPlayerData({
+      ...lecture,
+      chapter: idx + 1,
+      lecture: i + 1,
+      videoId: lecture?.lectureUrl.split("v=").pop(),
+      isCompletedLecture: false,
+    });
+    scrollToVideoRef?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [scrollToVideoRef, setPlayerData, lecture, idx, i]);
+
   return (
     <li className="flex items-center gap-3 py-1.5">
       {lecture?.isPreviewFree || isBuyedCourse ? (
@@ -24,7 +38,8 @@ const Lecture = ({
           loading="lazy"
           src={isCompletedLecture ? assets.blue_tick_icon : assets.play_icon}
           alt="play_icon"
-          className="w-4 h-4"
+          className="size-4 cursor-pointer"
+          onClick={handlePlayerData}
         />
       ) : (
         <FaLock className="size-4 text-gray-600/85" />
@@ -36,12 +51,7 @@ const Lecture = ({
             <p
               onClick={() => {
                 navigate("/player/" + courseData._id);
-                setPlayerData({
-                  ...lecture,
-                  chapter: idx + 1,
-                  lecture: i + 1,
-                  videoId: lecture?.lectureUrl.split("/").pop(),
-                });
+                handlePlayerData();
               }}
               className="text-blue-500 cursor-pointer"
             >
@@ -50,18 +60,7 @@ const Lecture = ({
           ) : (
             lecture?.isPreviewFree && (
               <p
-                onClick={() => {
-                  setPlayerData({
-                    ...lecture,
-                    chapter: idx + 1,
-                    lecture: i + 1,
-                    videoId: lecture?.lectureUrl.split("v=").pop(),
-                  });
-                  scrollToVideoRef?.current?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }}
+                onClick={handlePlayerData}
                 className="text-blue-500 cursor-pointer"
               >
                 Preview

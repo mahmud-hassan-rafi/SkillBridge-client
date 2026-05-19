@@ -1,15 +1,16 @@
 import ScrollToTop from "@components/common/ScrollToTop";
-import Navbar from "@components/Student/Navbar";
-import React from "react";
+import Footer from "@components/Student/Footer";
+import Navbar from "@components/Student/navbar/Navbar";
 import { Outlet } from "react-router-dom";
 
 const MainLayoutStudent = () => {
   return (
     <>
       <ScrollToTop />
-      <div className="text-default min-w-screen min-h-screen bg-white">
+      <div className="relative text-default min-w-screen min-h-screen bg-white">
         <Navbar />
         <Outlet />
+        <Footer />
       </div>
     </>
   );

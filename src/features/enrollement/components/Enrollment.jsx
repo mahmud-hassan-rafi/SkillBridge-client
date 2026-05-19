@@ -16,7 +16,6 @@ const Enrollment = ({ course }) => {
   const courseCompleteProgressPercent =
     Math.floor((completedLectures / totalLectures) * 100) || 0;
 
-  console.log(courseCompleteProgressPercent);
   return (
     <tr key={uniqid()} className="border-b border-gray-500/20 align-middle">
       <td className="px-2 sm:px-4 py-3">

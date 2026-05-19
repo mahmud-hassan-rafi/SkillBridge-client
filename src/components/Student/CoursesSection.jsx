@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CourseCard from "./CourseCard";
 import { useGetCoursesQuery } from "@features/course/courseApi";
-import Loading from "@components/common/Loading";
 import CourseCardSkeleton from "@skeleton/course/CourseCardSkeleton";
 
 const CoursesSection = () => {
   const { data: courses, isLoading } = useGetCoursesQuery();
   const allCourses = structuredClone(courses?.AllCourses);
-
-  if (isLoading) return <Loading />;
 
   return (
     <div className="py-16 md:px-16 lg:px-24 xl:px-40 px-6">

@@ -24,7 +24,7 @@ import Signup from "@features/auth/pages/Signup";
 
 import PrivateRoutes from "@routes/guards/PrivateRoutes";
 import RootRedirect from "@routes/redirects/RootRedirect";
-import InstructorNotAllowed from "@routes/guards/NotAllowed";
+import InstructorNotAllowed from "@routes/guards/InstructorNotAllowed";
 
 import TeachingExperienceOnboarding from "@pages/Instructor/become-instructor/onboarding/TeachingExperienceOnboarding";
 import VideoExperienceOnboarding from "@pages/Instructor/become-instructor/onboarding/VideoExperienceOnboarding";
@@ -40,6 +40,15 @@ const CourseCheckout = lazy(
 
 import PaymentSuccess from "@features/payment/pages/PaymentSuccess";
 import { CourseCheckoutLoader } from "@features/payment/pages/CourseCheckout";
+import SomethingWentWrong from "@components/common/SomethingWentWrong";
+// import Test from "@pages/Test";
+import AboutPage from "@pages/common/About";
+import ContactPage from "@pages/common/Contact";
+import PrivacyPolicyPage from "@pages/common/PrivacyPolicy";
+import TermsAndConditionsPage from "@pages/common/TermsAndConditionPage";
+// import CategoriesPage from "@pages/Student/CategoriesPage";
+import Layout from "@layouts/Layout";
+import NotAllowedIfLoggedIn from "./guards/NotAllowedIfLoggedIn";
 
 const suspenseWrap = (component) => (
   <Suspense fallback={<Loading />}>{component}</Suspense>
@@ -49,159 +58,225 @@ const router = (isLoading) =>
   createBrowserRouter([
     {
       path: "/",
-      element: <MainLayoutStudent />,
+      element: <Layout />,
       children: [
         {
-          index: true,
-          element: <RootRedirect isLoading={isLoading} />,
-        },
-        {
-          path: "home",
+          path: "/login",
           element: (
-            <InstructorNotAllowed>
-              <Home />
-            </InstructorNotAllowed>
+            <NotAllowedIfLoggedIn>
+              <Login />
+            </NotAllowedIfLoggedIn>
           ),
         },
         {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "signup",
-          element: <Signup />,
-        },
-        {
-          path: "course-list",
+          path: "/register",
           element: (
-            <InstructorNotAllowed>
-              {suspenseWrap(<CoursesList />)}
-            </InstructorNotAllowed>
+            <NotAllowedIfLoggedIn>
+              <Signup />
+            </NotAllowedIfLoggedIn>
           ),
         },
+
+        // Student routes
         {
-          path: "course-list/:input",
+          path: "/",
+          element: <MainLayoutStudent />,
+          errorElement: <SomethingWentWrong />,
+          children: [
+            {
+              index: true,
+              errorElement: <SomethingWentWrong />,
+              element: <RootRedirect isLoading={isLoading} />,
+            },
+            {
+              path: "home",
+              element: (
+                <InstructorNotAllowed>
+                  <Home />
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "about",
+              element: (
+                <InstructorNotAllowed>
+                  <AboutPage />
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "contact",
+              element: (
+                <InstructorNotAllowed>
+                  <ContactPage />
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "privacy-policy",
+              element: (
+                <InstructorNotAllowed>
+                  <PrivacyPolicyPage />
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "terms-and-conditions",
+              element: (
+                <InstructorNotAllowed>
+                  <TermsAndConditionsPage />
+                </InstructorNotAllowed>
+              ),
+            },
+            // {
+            //   path: "category",
+            //   element: (
+            //     <InstructorNotAllowed>
+            //       <CategoriesPage />
+            //     </InstructorNotAllowed>
+            //   ),
+            // },
+            {
+              path: "course-list",
+              element: (
+                <InstructorNotAllowed>
+                  {suspenseWrap(<CoursesList />)}
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "course-list/:input",
+              element: (
+                <InstructorNotAllowed>
+                  {suspenseWrap(<CoursesList />)}
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "course/:id",
+              element: (
+                <InstructorNotAllowed>
+                  <CourseDetails />
+                </InstructorNotAllowed>
+              ),
+            },
+            {
+              path: "course/enroll/:id",
+              loader: CourseCheckoutLoader,
+              element: (
+                <PrivateRoutes allowRoles={["student"]} route="/login">
+                  {suspenseWrap(<CourseCheckout />)}
+                </PrivateRoutes>
+              ),
+            },
+            {
+              path: "course/enroll/payment-success",
+              element: <PaymentSuccess />,
+            },
+            {
+              path: "my-enrollments",
+              element: (
+                <PrivateRoutes allowRoles={["student"]}>
+                  <MyEnrollments />
+                </PrivateRoutes>
+              ),
+            },
+            {
+              path: "player/:courseId",
+              element: (
+                <PrivateRoutes allowRoles={["student"]}>
+                  <Player />
+                </PrivateRoutes>
+              ),
+            },
+          ],
+        },
+
+        // become instructor
+        {
+          path: "/become-instructor",
+          element: <BecomeInstructor />,
+        },
+
+        // Become instructor onboarding routes
+        {
+          path: "/become-instructor/onboarding",
           element: (
-            <InstructorNotAllowed>
-              {suspenseWrap(<CoursesList />)}
-            </InstructorNotAllowed>
+            <InstructorOnBoardingContextProvider>
+              <BecomeInstructorOnboardingLayout />
+            </InstructorOnBoardingContextProvider>
           ),
+          children: [
+            {
+              path: "teaching-experience",
+              element: <TeachingExperienceOnboarding />,
+            },
+            {
+              path: "video-experience",
+              element: <VideoExperienceOnboarding />,
+            },
+            {
+              path: "existing-audience",
+              element: <ExistingAudienceOnboarding />,
+            },
+          ],
         },
+
+        // Instructor routes
         {
-          path: "course/:id",
-          element: (
-            <InstructorNotAllowed>
-              <CourseDetails />
-            </InstructorNotAllowed>
-          ),
+          path: "/instructor",
+          element: <InstructorLayout />,
+          children: [
+            {
+              path: "dashboard",
+              element: (
+                <PrivateRoutes allowRoles={["instructor"]}>
+                  <Dashboard />
+                </PrivateRoutes>
+              ),
+            },
+            {
+              path: "add-course",
+              element: (
+                <PrivateRoutes allowRoles={["instructor"]}>
+                  <AddCourse />
+                </PrivateRoutes>
+              ),
+            },
+            {
+              path: "my-courses",
+              element: (
+                <PrivateRoutes allowRoles={["instructor"]}>
+                  <MyCourses />
+                </PrivateRoutes>
+              ),
+            },
+            {
+              path: "student-enrolled",
+              element: (
+                <PrivateRoutes allowRoles={["instructor"]}>
+                  <StudentsEnrolled />
+                </PrivateRoutes>
+              ),
+            },
+          ],
         },
+
+        // test route
+        // {
+        //   path: "/test",
+        //   element: <Test />,
+        // },
+
+        // 404 page
         {
-          path: "course/enroll/:id",
-          loader: CourseCheckoutLoader,
-          element: (
-            <PrivateRoutes allowRoles={["student"]} route="/login">
-              {suspenseWrap(<CourseCheckout />)}
-            </PrivateRoutes>
-          ),
-        },
-        {
-          path: "course/enroll/payment-success",
-          element: <PaymentSuccess />,
-        },
-        {
-          path: "my-enrollments",
-          element: (
-            <PrivateRoutes allowRoles={["student"]}>
-              <MyEnrollments />
-            </PrivateRoutes>
-          ),
-        },
-        {
-          path: "player/:courseId",
-          element: (
-            <PrivateRoutes allowRoles={["student"]}>
-              <Player />
-            </PrivateRoutes>
-          ),
-        },
-        {
-          path: "loading/:path",
-          element: <Loading />,
+          path: "*",
+          element: <PageNotFound />,
         },
       ],
     },
 
-    {
-      path: "/become-instructor",
-      element: <BecomeInstructor />,
-    },
-
-    {
-      path: "/become-instructor/onboarding",
-      element: (
-        <InstructorOnBoardingContextProvider>
-          <BecomeInstructorOnboardingLayout />
-        </InstructorOnBoardingContextProvider>
-      ),
-      children: [
-        {
-          path: "teaching-experience",
-          element: <TeachingExperienceOnboarding />,
-        },
-        {
-          path: "video-experience",
-          element: <VideoExperienceOnboarding />,
-        },
-        {
-          path: "existing-audience",
-          element: <ExistingAudienceOnboarding />,
-        },
-      ],
-    },
-
-    {
-      path: "/instructor",
-      element: <InstructorLayout />,
-      children: [
-        {
-          path: "dashboard",
-          element: (
-            <PrivateRoutes allowRoles={["instructor"]}>
-              <Dashboard />
-            </PrivateRoutes>
-          ),
-        },
-        {
-          path: "add-course",
-          element: (
-            <PrivateRoutes allowRoles={["instructor"]}>
-              <AddCourse />
-            </PrivateRoutes>
-          ),
-        },
-        {
-          path: "my-courses",
-          element: (
-            <PrivateRoutes allowRoles={["instructor"]}>
-              <MyCourses />
-            </PrivateRoutes>
-          ),
-        },
-        {
-          path: "student-enrolled",
-          element: (
-            <PrivateRoutes allowRoles={["instructor"]}>
-              <StudentsEnrolled />
-            </PrivateRoutes>
-          ),
-        },
-      ],
-    },
-
-    {
-      path: "*",
-      element: <PageNotFound />,
-    },
+    // auth routes
   ]);
 
 export default router;

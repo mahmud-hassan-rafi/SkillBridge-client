@@ -149,7 +149,6 @@ bg-linear-to-b from-cyan-100/70"
           />
         </Suspense>
       </div>
-      <Footer />
     </>
   );
 };
