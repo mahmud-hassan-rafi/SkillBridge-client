@@ -55,7 +55,21 @@ import existing_audience_cover from "./existing-audience-cover.webp";
 import teaching_experience_cover from "./teaching-experience-cover.webp";
 import video_experience_cover from "./video-experience-cover.webp";
 
+// about page
+import about_page_hero_section_bg from "./about_page_hero_section_bg.avif";
+
+{
+  /* signup page */
+}
+import signup_page_avater_illustration from "./signup_page_avater_illustration.png";
+import signup_page_background_illustration from "./signup_page_background_illustration.png";
+
 export const assets = {
+  about_page_hero_section_bg,
+
+  signup_page_avater_illustration,
+  signup_page_background_illustration,
+
   video_experience_cover,
   teaching_experience_cover,
   existing_audience_cover,
