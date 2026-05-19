@@ -16,7 +16,8 @@
       "@features/*": ["features/*"],
       "@routes/*": ["routes/*"],
       "@skeleton/*": ["skeleton/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@providers/*": ["providers/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

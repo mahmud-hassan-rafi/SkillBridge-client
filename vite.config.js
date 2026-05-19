@@ -19,6 +19,7 @@ export default defineConfig({
       "@routes": "/src/routes",
       "@skeleton": "/src/skeleton",
       "@hooks": "/src/hooks",
+      "@providers": "/src/providers",
     },
   },
 });
